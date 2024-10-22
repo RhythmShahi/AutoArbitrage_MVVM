@@ -1,0 +1,201 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:AutoArbitrage_MVVM.ViewModels"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:views="clr-namespace:AutoArbitrage_MVVM.Views"
+        mc:Ignorable="d" d:DesignWidth="1080" d:DesignHeight="768"
+        Width="1080" Height="768"
+        x:Class="AutoArbitrage_MVVM.Views.MainWindow"
+        x:DataType="vm:MainWindowViewModel"
+        Title="AutoArbitrage_MVVM"
+        WindowStartupLocation="CenterOwner"
+        ExtendClientAreaToDecorationsHint="True"
+        ExtendClientAreaChromeHints="NoChrome"
+        ExtendClientAreaTitleBarHeightHint="0">
+
+    <Design.DataContext>
+        <!-- This only sets the DataContext for the previewer in an IDE,
+             to set the actual DataContext for runtime, set the DataContext property in code (look at App.axaml.cs) -->
+        <vm:MainWindowViewModel/>
+    </Design.DataContext>
+    
+    
+
+    <Grid>
+        
+        <Grid.RowDefinitions>42.75,104.25,*</Grid.RowDefinitions>
+        
+        <StackPanel Grid.Row="0" Grid.Column="0" Orientation="Horizontal" Background="#0B0B14">
+            <TextBlock 
+                Text="AutoArbitrage"
+                FontSize="24"
+                FontWeight="Bold"
+                Foreground="White"
+                VerticalAlignment="Center"
+                Margin="11.25,0,813,0"/>
+                        
+            <Button 
+                Name="Min"
+                Click="Min_OnClick"
+                Margin="2.625,0" 
+                Height="18.75" 
+                Width="18.75" 
+                CornerRadius="3.75"
+                Background="DarkGreen"/>
+                        
+            <Button 
+                Name="Stack"
+                Click="Stack_OnClick"
+                Margin="2.625,0" 
+                Height="18.75" 
+                Width="18.75" 
+                CornerRadius="3.75"
+                Background="Orange"/>
+                        
+            <Button 
+                Name="Close"
+                Click="Close_OnClick"
+                Margin="2.625,0" 
+                Height="18.75" 
+                Width="18.75" 
+                CornerRadius="3.75"
+                Background="DarkRed"/>
+        </StackPanel>
+        
+        <Grid Grid.Row="1" Background="#121528" Width="1080">
+            
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="25"/> <!-- Left margin -->
+                <ColumnDefinition Width="78.75"/> <!-- Trade button -->
+                <ColumnDefinition Width="72.75"/> <!-- Spacing -->
+                <ColumnDefinition Width="85.5"/> <!-- Wallet button -->
+                <ColumnDefinition Width="72.75"/> <!-- Spacing -->
+                <ColumnDefinition Width="153"/> <!-- Transactions button -->
+                <ColumnDefinition Width="72.75"/> <!-- Spacing -->
+                <ColumnDefinition Width="74.25"/> <!-- News button -->
+                <ColumnDefinition Width="72.75"/> <!-- Spacing -->
+                <ColumnDefinition Width="99.75"/> <!-- Settings button -->
+                <ColumnDefinition Width="72.75"/> <!-- Spacing -->
+                <ColumnDefinition Width="80.25"/> <!-- Profile button -->
+                <ColumnDefinition Width="15"/> <!-- Spacing -->
+                <ColumnDefinition Width="63"/> <!-- Rectangle -->
+                <ColumnDefinition Width="25"/> <!-- Right margin -->
+            </Grid.ColumnDefinitions>
+            
+            <Button
+                Grid.Column="1"
+                Name="Trade"
+                Content="Trade"
+                Click="Trade_OnClick"
+                Command="{Binding OnNavigate}"
+                CommandParameter="Trade"
+                Background="#173055"
+                Height="33"
+                Width="78.75"
+                CornerRadius="50"
+                Foreground="White"
+                FontSize="18"
+                FontWeight="Light"
+                HorizontalAlignment="Center"
+                HorizontalContentAlignment="Center"/>
+            
+            <Button
+                Grid.Column="3"
+                Name="Wallet"
+                Content="Wallet"
+                Click="Wallet_OnClick"
+                Background="Transparent"
+                Height="33"
+                Width="85.5"
+                CornerRadius="50"
+                Foreground="White"
+                FontSize="18"
+                FontWeight="Light"
+                HorizontalAlignment="Center"
+                HorizontalContentAlignment="Center"/>
+            
+            <Button
+                Grid.Column="5"
+                Name="PastTransactions"
+                Content="Transactions"
+                Click="PastTransactions_OnClick"
+                Command="{Binding OnNavigate}"
+                CommandParameter="Transactions"
+                Background="Transparent"
+                Height="33"
+                Width="153"
+                CornerRadius="50"
+                Foreground="White"
+                FontSize="18"
+                FontWeight="Light"
+                HorizontalAlignment="Center"
+                HorizontalContentAlignment="Center"/>
+            
+            <Button
+                Grid.Column="7"
+                Name="Assistant"
+                Content="News"
+                Click="Assistant_OnClick"
+                Command="{Binding OnNavigate}"
+                CommandParameter="News"
+                Background="Transparent"
+                Height="33"
+                Width="74.25"
+                CornerRadius="50"
+                Foreground="White"
+                FontSize="18"
+                FontWeight="Light"
+                HorizontalAlignment="Center"
+                HorizontalContentAlignment="Center"/>
+            
+            <Button
+                Grid.Column="9"
+                Name="Settings"
+                Content="Settings"
+                Command="{Binding OnNavigate}"
+                CommandParameter="Settings"
+                Click="Settings_OnClick"
+                Background="Transparent"
+                Height="33"
+                Width="99.75"
+                CornerRadius="50"
+                Foreground="White"
+                FontSize="18"
+                FontWeight="Light"
+                HorizontalAlignment="Center"
+                HorizontalContentAlignment="Center"/>
+            
+            <Button
+                Grid.Column="11"
+                Name="Profile"
+                Content="Profile"
+                Click="Profile_OnClick"
+                Command="{Binding OnNavigate}"
+                CommandParameter="Profile"
+                Background="Transparent"
+                Height="33"
+                Width="80.25"
+                CornerRadius="50"
+                Foreground="White"
+                FontSize="18"
+                FontWeight="Light"
+                HorizontalAlignment="Center"
+                HorizontalContentAlignment="Center"/>
+            
+            <Rectangle 
+                Grid.Column="13" 
+                Height="63" 
+                Width="63" 
+                Fill="White" 
+                HorizontalAlignment="Left"/>
+        </Grid>
+        
+        <Grid Grid.Row="2" Name="MainGrid">
+            <ContentControl Name="MainContent"
+                            Content="{Binding CurrentView}"/>
+        </Grid>
+        
+    </Grid>
+
+</Window>

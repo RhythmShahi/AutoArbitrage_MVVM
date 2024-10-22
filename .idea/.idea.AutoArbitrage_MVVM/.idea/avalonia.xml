@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AvaloniaProject">
+    <option name="projectPerEditor">
+      <map>
+        <entry key="AutoArbitrage_MVVM/App.axaml" value="AutoArbitrage_MVVM/AutoArbitrage_MVVM.csproj" />
+        <entry key="AutoArbitrage_MVVM/Views/Login.axaml" value="AutoArbitrage_MVVM/AutoArbitrage_MVVM.csproj" />
+        <entry key="AutoArbitrage_MVVM/Views/MainWindow.axaml" value="AutoArbitrage_MVVM/AutoArbitrage_MVVM.csproj" />
+        <entry key="AutoArbitrage_MVVM/Views/News.axaml" value="AutoArbitrage_MVVM/AutoArbitrage_MVVM.csproj" />
+        <entry key="AutoArbitrage_MVVM/Views/Profile.axaml" value="AutoArbitrage_MVVM/AutoArbitrage_MVVM.csproj" />
+        <entry key="AutoArbitrage_MVVM/Views/Settings.axaml" value="AutoArbitrage_MVVM/AutoArbitrage_MVVM.csproj" />
+        <entry key="AutoArbitrage_MVVM/Views/SignUp.axaml" value="AutoArbitrage_MVVM/AutoArbitrage_MVVM.csproj" />
+        <entry key="AutoArbitrage_MVVM/Views/Trade.axaml" value="AutoArbitrage_MVVM/AutoArbitrage_MVVM.csproj" />
+        <entry key="AutoArbitrage_MVVM/Views/Transactions.axaml" value="AutoArbitrage_MVVM/AutoArbitrage_MVVM.csproj" />
+        <entry key="AutoArbitrage_MVVM/Views/UserControl1.axaml" value="AutoArbitrage_MVVM/AutoArbitrage_MVVM.csproj" />
+      </map>
+    </option>
+  </component>
+</project>

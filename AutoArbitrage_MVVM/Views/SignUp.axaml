@@ -1,0 +1,272 @@
+﻿<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:viewModels="clr-namespace:AutoArbitrage_MVVM.ViewModels"
+        mc:Ignorable="d" d:DesignWidth="1080" d:DesignHeight="768"
+        Width="1080" Height="768"
+        x:Class="AutoArbitrage_MVVM.Views.SignUp"
+        Title="SignUp"
+        WindowStartupLocation="CenterOwner"
+        ExtendClientAreaToDecorationsHint="True"
+        ExtendClientAreaChromeHints="NoChrome"
+        ExtendClientAreaTitleBarHeightHint="0"
+        x:DataType="viewModels:SignUpViewModel">
+        
+        
+        <Grid Background="#121528">
+                
+                <Grid.RowDefinitions>42.75,*</Grid.RowDefinitions>
+                
+                <StackPanel Grid.Row="0" Grid.Column="0" Orientation="Horizontal" Background="#0B0B14">
+                        <TextBlock 
+                                Text="AutoArbitrage"
+                                FontSize="24"
+                                FontWeight="Bold"
+                                Foreground="White"
+                                VerticalAlignment="Center"
+                                Margin="11.25,0,813,0"/>
+                        
+                        <Button 
+                                Name="Min"
+                                Click="Min_OnClick"
+                                Margin="2.625,0" 
+                                Height="18.75" 
+                                Width="18.75" 
+                                CornerRadius="3.75"
+                                Background="DarkGreen"/>
+                        
+                        <Button 
+                                Name="Stack"
+                                Click="Stack_OnClick"
+                                Margin="2.625,0" 
+                                Height="18.75" 
+                                Width="18.75" 
+                                CornerRadius="3.75"
+                                Background="Orange"/>
+                        
+                        <Button 
+                                Name="Close"
+                                Click="Close_OnClick"
+                                Margin="2.625,0" 
+                                Height="18.75" 
+                                Width="18.75" 
+                                CornerRadius="3.75"
+                                Background="DarkRed"/>
+                </StackPanel>
+                
+                <Grid Grid.Row="1">
+                        <StackPanel Margin="20">
+                                <TextBlock
+                                        Text="Connect To"
+                                        FontSize="70"
+                                        FontWeight="Bold"
+                                        Foreground="White"
+                                        VerticalAlignment="Center"
+                                        HorizontalAlignment="Left"
+                                        Margin="20,0,0,0"/>
+                                
+                                <TextBlock
+                                        Text="Exchanges"
+                                        FontSize="70"
+                                        FontWeight="Bold"
+                                        Foreground="White"
+                                        VerticalAlignment="Center"
+                                        HorizontalAlignment="Left"
+                                        Margin="20,-10,0,0"/>
+                                
+                                <TextBlock
+                                        Text="Capitalize on arbitrage opportunities. Stay ahead of the curve. Grow your portfolio."
+                                        FontSize="20"
+                                        Foreground="White"
+                                        VerticalAlignment="Center"
+                                        HorizontalAlignment="Left"
+                                        Margin="20,30,0,0"
+                                        Width="500"
+                                        TextWrapping="Wrap"/>
+                                
+                                <TextBlock
+                                        Text="Trade Crypto Futures with AutoArbitrage"
+                                        FontSize="18"
+                                        Foreground="White"
+                                        VerticalAlignment="Center"
+                                        HorizontalAlignment="Left"
+                                        Margin="20,30,0,0"
+                                        Width="500"
+                                        TextWrapping="Wrap"/>
+                                        
+                                <Border 
+                                        Width="540"
+                                        Height="40"
+                                        Background="#4C6FC7"
+                                        Margin="-200,200,0,0"
+                                        HorizontalAlignment="Left"
+                                        CornerRadius="100">
+                                        
+                                        <Border.RenderTransform>
+                                                <RotateTransform Angle="-45"></RotateTransform>
+                                        </Border.RenderTransform>
+                                </Border>
+                                
+                                <Border 
+                                        Width="500"
+                                        Height="40"
+                                        Background="#10265F"
+                                        Margin="-200,80,0,0"
+                                        HorizontalAlignment="Left"
+                                        CornerRadius="100">
+                                        
+                                        <Border.RenderTransform>
+                                                <RotateTransform Angle="-45"></RotateTransform>
+                                        </Border.RenderTransform>
+                                </Border>
+                                
+                                <Border 
+                                        Width="900"
+                                        Height="40"
+                                        Background="#839EE3"
+                                        Margin="-340,0,0,0"
+                                        HorizontalAlignment="Left"
+                                        CornerRadius="100">
+                                        
+                                        <Border.RenderTransform>
+                                                <RotateTransform Angle="-45"></RotateTransform>
+                                        </Border.RenderTransform>
+                                </Border>
+                        </StackPanel>
+                        
+                        <Border
+                                Width="400"
+                                Height="650"
+                                HorizontalAlignment="Right"
+                                VerticalAlignment="Bottom"
+                                Margin="0,0,50,50"
+                                CornerRadius="20"
+                                Background="#0D0C21">
+                        
+                                <StackPanel Margin="20">
+                                        <TextBlock
+                                                Text="Sign Up"
+                                                FontSize="40"
+                                                FontWeight="Bold"
+                                                Foreground="White"
+                                                HorizontalAlignment="Center"/>
+                                        
+                                        <TextBlock 
+                                                Text="Email Address"
+                                                Foreground="#D9D9D9"
+                                                Margin="0,20,0,0"/>
+                                        
+                                        <TextBox 
+                                                Name="Email"
+                                                Text="{Binding Email, Mode=TwoWay}"
+                                                Height="40"
+                                                Foreground="Black"
+                                                Background="#D9D9D9"
+                                                FontSize="20"
+                                                GotFocus="Email_OnGotFocus" 
+                                                LostFocus="Email_OnLostFocus"/>
+                                        
+                                        <TextBlock 
+                                                Text="Password"
+                                                Foreground="#D9D9D9"
+                                                Margin="0,20,0,0"/>
+                                        
+                                        <TextBox 
+                                                Name="Password"
+                                                Text="{Binding Password, Mode=TwoWay}"
+                                                Height="40"
+                                                Foreground="Black"
+                                                Background="#D9D9D9"
+                                                FontSize="20"
+                                                GotFocus="Password_OnGotFocus" 
+                                                LostFocus="Password_OnLostFocus"/>
+                                        
+                                        <TextBlock 
+                                                Text="Confirm Password"
+                                                Foreground="#D9D9D9"
+                                                Margin="0,20,0,0"/>
+                                        
+                                        <TextBox 
+                                                Name="ConfirmPassword"
+                                                Text="{Binding ConfirmPassword, Mode=TwoWay}"
+                                                Height="40"
+                                                Foreground="Black"
+                                                Background="#D9D9D9"
+                                                FontSize="20"
+                                                GotFocus="ConfirmPassword_OnGotFocus" 
+                                                LostFocus="ConfirmPassword_OnLostFocus"/>
+                                        
+                                        <TextBlock 
+                                                Text="Binance API Key"
+                                                Foreground="#D9D9D9"
+                                                Margin="0,20,0,0"/>
+                                        
+                                        <TextBox 
+                                                Name="Binance_API_Key"
+                                                Text="{Binding BinanceKey, Mode=TwoWay}"
+                                                Height="40"
+                                                Foreground="Black"
+                                                Background="#D9D9D9"
+                                                FontSize="20"
+                                                GotFocus="BinanceAPIKey_OnGotFocus" 
+                                                LostFocus="BinanceAPIKey_OnLostFocus"/>
+                                        
+                                        <TextBlock 
+                                                Text="ByBit API Key"
+                                                Foreground="#D9D9D9"
+                                                Margin="0,20,0,0"/>
+                                        
+                                        <TextBox 
+                                                Name="ByBit_API_Key"
+                                                Text="{Binding BybitKey, Mode=TwoWay}"
+                                                Height="40"
+                                                Foreground="Black"
+                                                Background="#D9D9D9"
+                                                FontSize="20"
+                                                GotFocus="ByBitAPIKey_OnGotFocus" 
+                                                LostFocus="ByBitAPIKey_OnLostFocus"/>
+                                        
+                                        <Button 
+                                                Name="SignUpButton"
+                                                Content="Sign Up"
+                                                Command="{Binding SignUp}"
+                                                Background="#173055"
+                                                Margin="0,40,0,0"
+                                                Width="120"
+                                                FontSize="20"
+                                                Padding="10"
+                                                Foreground="White"
+                                                CornerRadius="10"
+                                                HorizontalAlignment="Center"
+                                                HorizontalContentAlignment="Center"
+                                                />
+
+                                        <Button
+                                                Name="ToLoginButton"
+                                                Content="Already have an account? Login here."
+                                                Command="{Binding ToLogin}"
+                                                Background="#0D0C21"
+                                                Margin="0,10,0,0"
+                                                FontSize="16"
+                                                Foreground="White"
+                                                HorizontalAlignment="Center"/>
+                                        
+                                        <TextBlock
+                                                Name="ErrorMessage"
+                                                Text="{Binding ErrorMessage}"
+                                                Margin="0,15,0,0"
+                                                FontSize="14"
+                                                FontWeight="SemiBold"
+                                                Foreground="DarkRed"
+                                                HorizontalAlignment="Center"
+                                                TextWrapping="Wrap"/>
+                                        
+                                </StackPanel>
+                        </Border>
+                </Grid>
+                
+        </Grid>
+        
+        
+</Window>

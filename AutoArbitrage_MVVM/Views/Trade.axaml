@@ -1,0 +1,331 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:viewModels="clr-namespace:AutoArbitrage_MVVM.ViewModels"
+             mc:Ignorable="d" d:DesignWidth="1080" d:DesignHeight="621"
+             Width="1080" Height="621"
+             x:Class="AutoArbitrage_MVVM.Views.Trade"
+             x:DataType="viewModels:TradeViewModel">
+    
+             <Grid Background="White">
+                 <Grid.RowDefinitions>135,486</Grid.RowDefinitions>
+                 <Grid.ColumnDefinitions>375.75,375.75,*</Grid.ColumnDefinitions>
+                 
+                 <StackPanel Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" Background="#121528">
+                     
+                     <Grid>
+                         <Grid.ColumnDefinitions>*,*,*</Grid.ColumnDefinitions>
+                         
+                         <Rectangle 
+                             Grid.Column="0"
+                             Grid.ColumnSpan="2"
+                             Fill="#0E0E22"
+                             Height="123.75"
+                             Width="708.25"
+                             RadiusX="16.5"
+                             RadiusY="16.5"
+                             HorizontalAlignment="Left"
+                             Margin="21,0,0,0"/>
+                         
+                         <StackPanel Grid.Column="0">
+                             <TextBlock
+                                 Text="Cryptocurrency Perpetuals"
+                                 Foreground="White"
+                                 FontWeight="SemiBold"
+                                 FontSize="18"
+                                 Margin="49.5,21.375,0,0"/>
+                             
+
+                             <ComboBox CornerRadius="6" 
+                                       Foreground="White"
+                                       Background="#173055" 
+                                       Width="270.75" 
+                                       FontSize="18"
+                                       Height="45" 
+                                       Margin="42.75,9,0,0"
+                                       BorderBrush="Transparent" 
+                                       PlaceholderForeground="White"
+                                       PlaceholderText="Choose Cryptocurrency"
+                                       Name="CurrencyBox"
+                                       ItemsSource="{Binding CurrencyOptions}"
+                                       SelectedItem="{Binding SelectedCurrency, Mode=TwoWay}">
+
+                             </ComboBox>
+                             
+                         </StackPanel>
+                         
+                         <StackPanel Grid.Column="1" Orientation="Horizontal">
+                             
+                             <Button
+                                 Content="USDT-M"
+                                 VerticalContentAlignment="Center" 
+                                 HorizontalContentAlignment="Center" 
+                                 FontSize="18" 
+                                 Foreground="White" 
+                                 Name="USD_Margin"
+                                 Background="Transparent" 
+                                 CornerRadius="6" 
+                                 Height="30" 
+                                 Margin="0,35,0,0"/>
+                             
+                    
+                             <Button 
+                                 Content="Coin-M"
+                                 VerticalContentAlignment="Center" 
+                                 HorizontalContentAlignment="Center" 
+                                 FontSize="18" 
+                                 Foreground="White" 
+                                 Name="Coin_Margin"
+                                 Background="Transparent" 
+                                 CornerRadius="6" 
+                                 Height="30" 
+                                 Margin="51.75,35,0,0"/>
+                             
+                         </StackPanel>
+                     </Grid>
+                     
+                 </StackPanel>
+                 
+                <StackPanel Grid.Row="1" Grid.Column="0" Background="#121528">
+                    <Grid>
+                        <Rectangle
+                           HorizontalAlignment="Left"
+                           Margin="21,0,0,0"
+                           Width="348.75" 
+                           Height="463.5"
+                           Fill="#0E0E22"
+                           RadiusX="16.5" 
+                           RadiusY="16.5"/>
+
+                        <StackPanel>
+                            <TextBlock
+                                Foreground="White"
+                                FontSize="24"
+                                Margin="42,14.25,0,0"
+                                FontWeight="SemiBold">Binance Order Book
+                            </TextBlock>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="Price(USDT)" Foreground="White" FontSize="15" Margin="43.75,24,0,0"></TextBlock>
+                                <TextBlock Text="Quantity" Foreground="White" FontSize="15" Margin="98.75,24,0,0"></TextBlock>
+                            </StackPanel>
+
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition></ColumnDefinition>
+                                    <ColumnDefinition></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                
+                                <TextBlock Text="{Binding BinanceAskPrice}" Name="BinanceAskPrice" Grid.Column="0" Height="143.25" FontSize="20" Foreground="DarkGreen" Margin="42.5,10,0,0"></TextBlock>
+                                <TextBlock Text="{Binding BinanceAskQuantity}" Name="BinanceAskQuantity" Grid.Column="1" Height="143.25" FontSize="20" Foreground="DarkGreen" Margin="42.5,10,0,0"></TextBlock>
+                            </Grid>
+
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="{Binding BinancePrice}" Name="BinanceFuturesPrice" Foreground="{Binding BinancePriceColor}" FontSize="24" FontWeight="SemiBold" Margin="42,0,16.875,0"></TextBlock>
+                                <Grid>
+                                <Polygon Opacity="{Binding BinanceUpArrowOpacity}" Name="B_Up" Fill="DarkGreen" Points="9.375,0 18.75,18.75 0,18.75" Width="18.75" Height="15" />
+                                <Polygon Opacity="{Binding BinanceDownArrowOpacity}" Name="B_Down" Fill="DarkRed" Points="0,0 18.75,0 9.375,18.75" Width="18.75" Height="15" />
+                                </Grid>
+                                <TextBlock Text="{Binding BinancePreviousPrice}" Name="BinanceLastPrice" Foreground="#7C7C7C" FontSize="11.25" FontWeight="SemiBold" Margin="16.875,9,0,0"></TextBlock>
+                            </StackPanel>
+
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition></ColumnDefinition>
+                                    <ColumnDefinition></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                
+                                <TextBlock Text="{Binding BinanceBidPrice}" Name="BinanceBidPrice" Grid.Column="0" Height="143.25" FontSize="20" Foreground="DarkRed" Margin="42.5,19,0,0"></TextBlock>
+                                <TextBlock Text="{Binding BinanceBidQuantity}" Name="BinanceBidQuantity" Grid.Column="1" Height="143.25" FontSize="20" Foreground="DarkRed" Margin="42.5,19,0,0"></TextBlock>
+                            </Grid>
+
+                        </StackPanel>
+                    </Grid>
+                </StackPanel>
+
+        <StackPanel Grid.Row="1" Grid.Column="1" Background="#121528">
+            <Grid>
+                <Rectangle
+                   HorizontalAlignment="Left"
+                   Margin="5,0,0,0"
+                   Width="348.75" Height="463.5"
+                   Fill="#0E0E22"
+                   RadiusX="16.5" RadiusY="16.5">
+                </Rectangle>
+
+                <StackPanel>
+                    <TextBlock
+                        Foreground="White"
+                        FontSize="24"
+                        Margin="27.5,14.25,0,0"
+                        FontWeight="SemiBold">ByBit Order Book
+                    </TextBlock>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Price(USDT)" Foreground="White" FontSize="15" Margin="27.75,24,0,0"></TextBlock>
+                        <TextBlock Text="Quantity" Foreground="White" FontSize="15" Margin="98.75,24,0,0"></TextBlock>
+                    </StackPanel>
+
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        
+                        <TextBlock Text="{Binding BybitAskPrice}" Name="BybitAskPrice" Grid.Column="0" Height="143.25" FontSize="20" Foreground="DarkGreen" Margin="26.5,10,0,0"></TextBlock>
+                        <TextBlock Text="{Binding BinanceAskQuantity}" Name="BybitAskQuantity" Grid.Column="1" Height="143.25" FontSize="20" Foreground="DarkGreen" Margin="26.5,10,0,0"></TextBlock>
+                    </Grid>
+
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="{Binding BybitPrice}" Name="BybitFuturesPrice" Foreground="{Binding BybitPriceColor}" FontSize="24" FontWeight="SemiBold" Margin="26,0,16.875,0"></TextBlock>
+                        <Grid>
+                        <Polygon Opacity="{Binding BybitUpArrowOpacity}" Name="By_Up" Fill="DarkGreen" Points="9.375,0 18.75,18.75 0,18.75" Width="18.75" Height="15" />
+                        <Polygon Opacity="{Binding BybitDownArrowOpacity}" Name="By_Down" Fill="DarkRed" Points="0,0 18.75,0 9.375,18.75" Width="18.75" Height="15" />
+                        </Grid>
+                        <TextBlock Text="{Binding BybitPreviousPrice}" Name="BybitLastPrice" Foreground="#7C7C7C" FontSize="11.25" FontWeight="SemiBold" Margin="16.875,9,0,0"></TextBlock>
+                    </StackPanel>
+
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        
+                        <TextBlock Text="{Binding BybitBidPrice}" Name="BybitBidPrice" Grid.Column="0" Height="143.25" FontSize="20" Foreground="DarkRed" Margin="26.5,19,0,0"></TextBlock>
+                        <TextBlock Text="{Binding BybitBidQuantity}" Name="BybitBidQuantity" Grid.Column="1" Height="143.25" FontSize="20" Foreground="DarkRed" Margin="26.5,19,0,0"></TextBlock>
+                    </Grid>
+
+                </StackPanel>
+            </Grid>
+        </StackPanel>
+
+        <StackPanel Grid.Row="0" Grid.RowSpan="2" Grid.Column="2" Background="#121528">
+            <Grid>
+                <Rectangle HorizontalAlignment="Center" VerticalAlignment="Top" 
+                           RadiusX="16.5" RadiusY="16.5" Height="210" Width="316.5" 
+                           Fill="#0E0E22" Margin="0,0,34,0"></Rectangle>
+                <Rectangle HorizontalAlignment="Center" VerticalAlignment="Bottom" 
+                           RadiusX="16.5" RadiusY="16.5" Height="377" Width="316.5" 
+                           Fill="#0E0E22" Margin="0,221.5,34,0"></Rectangle>
+                <StackPanel>
+                    
+                    
+                    <TextBlock
+                        Text="Funding Rates"
+                        Foreground="White"
+                        FontWeight="SemiBold"
+                        FontSize="26"
+                        Margin="10,21.375,0,0">
+                    </TextBlock> 
+                    
+                    <TextBlock
+                        Text="{Binding Countdown}"
+                        Name="Countdown"
+                        Foreground="Orange"
+                        VerticalAlignment="Center"
+                        FontSize="18"
+                        FontWeight="Light"
+                        Margin="10,8,0,0">
+                    </TextBlock>
+                    
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Margin="10,10,0,0" FontSize="20" FontWeight="Regular" Foreground="White">Binance: </TextBlock>
+                        <TextBlock Text="{Binding BinanceFundingRate}" Margin="10,10,0,0" Name="BinanceFundingRate" FontSize="20" FontWeight="Light" Foreground="White"></TextBlock>
+                    </StackPanel>
+                    
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock 
+                            Text="{Binding BPaymentFrom}"
+                            Name="BPaymentFrom"
+                            Foreground="{Binding BPaymentFromColor}"
+                            VerticalAlignment="Center"
+                            FontSize="18"
+                            FontWeight="Bold"
+                            Margin="10,2,0,0">
+                        </TextBlock>
+                        <TextBlock
+                            Text="{Binding BArrow}"
+                            Name="BArrow"
+                            Foreground="White"
+                            VerticalAlignment="Center"
+                            FontSize="18"
+                            FontWeight="Bold"
+                            Margin="10,2,0,0">
+                        </TextBlock>
+                        <TextBlock
+                            Text="{Binding BPaymentTo}"
+                            Name="BPaymentTo"
+                            Foreground="{Binding BPaymentToColor}"
+                            VerticalAlignment="Center"
+                            FontSize="18"
+                            FontWeight="Bold"
+                            Margin="10,2,0,0">
+                        </TextBlock>
+                    </StackPanel>
+                    
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Margin="10,6,0,0" FontSize="20" FontWeight="Regular" Foreground="White">ByBit: </TextBlock>
+                        <TextBlock Text="{Binding BybitFundingRate}" Margin="10,6,0,0" Name="BybitFundingRate" FontSize="20" FontWeight="Light" Foreground="White"></TextBlock>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock 
+                            Text="{Binding ByPaymentFrom}"
+                            Foreground="{Binding ByPaymentFromColor}"
+                            VerticalAlignment="Center"
+                            FontSize="18"
+                            FontWeight="Bold"
+                            Margin="10,2,0,0">
+                        </TextBlock>
+                        <TextBlock 
+                            Text="{Binding ByArrow}"
+                            Foreground="White"
+                            VerticalAlignment="Center"
+                            FontSize="18"
+                            FontWeight="Bold"
+                            Margin="10,2,0,0">
+                        </TextBlock>
+                        <TextBlock 
+                            Text="{Binding ByPaymentTo}"
+                            Foreground="{Binding ByPaymentToColor}"
+                            VerticalAlignment="Center"
+                            FontSize="18"
+                            FontWeight="Bold"
+                            Margin="10,2,0,0">
+                        </TextBlock>
+                    </StackPanel>
+                    
+                    <TextBlock
+                        Text="Trade"
+                        Foreground="White"
+                        FontWeight="SemiBold"
+                        FontSize="26"
+                        Margin="10,49.5,0,0">
+                    </TextBlock>
+                    
+                    <Label Margin="8,14,0,0" FontSize="12" Foreground="White">Price</Label>
+                    <TextBox Margin="0,0,34,0" Background="White" Height="27.75" Width="275.25"></TextBox>
+                    
+                    <Label Margin="8,10,0,0" FontSize="12" Foreground="White">Size</Label>
+                    <TextBox Margin="0,0,34,0" Background="White" Height="27.75" Width="275.25"></TextBox>
+                    
+                    <Label Margin="8,10,0,0" FontSize="12" Foreground="White">Threshold</Label>
+                    <TextBox Margin="0,0,34,0" Background="White" Height="27.75" Width="275.25"></TextBox>
+                    
+                    
+                    
+                    <Button HorizontalAlignment="Center" Margin="0,18,34,0" Height="39.75" Width="173.25" Background="Orange" Foreground="#0E0E22" 
+                            HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="24" FontWeight="Bold">TRADE
+                    </Button>
+                    
+                    <Button HorizontalAlignment="Center" Margin="0,12,34,0" Height="39.75" Width="173.25" Background="DarkRed" Foreground="#0E0E22" 
+                            HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="24" FontWeight="Bold">STOP
+                    </Button>
+                    
+                </StackPanel>
+            </Grid>
+        </StackPanel>
+                 
+             </Grid>
+    
+    
+</UserControl>

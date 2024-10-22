@@ -1,0 +1,51 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:viewModels="clr-namespace:AutoArbitrage_MVVM.ViewModels"
+             mc:Ignorable="d" d:DesignWidth="1080" d:DesignHeight="621"
+             x:DataType="viewModels:TransactionsViewModel"
+             x:Class="AutoArbitrage_MVVM.Views.Transactions">
+    
+    <Grid Background="#121528">
+        <Grid.RowDefinitions>24,24,*,24,20,*</Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>*,*,*,*,*,*,*,*</Grid.ColumnDefinitions>
+        
+        <Rectangle Grid.ColumnSpan="8" Grid.RowSpan="4"
+            Fill="#0E0E22" Height="310.5" Width="1030" RadiusX="15" RadiusY="15"/>
+        
+        <TextBlock Grid.Row="0" Grid.ColumnSpan="8" Grid.Column="0" 
+                   Text="Current Transactions" FontSize="20" FontWeight="SemiBold" 
+                   Background="#121528" Foreground="White" ></TextBlock>
+        
+        <TextBlock Foreground="White" Grid.Row="1" Grid.Column="0" Text="Price" FontWeight="SemiBold" HorizontalAlignment="Center" VerticalAlignment="Bottom"/>
+        <TextBlock Foreground="White" Grid.Row="1" Grid.Column="1" Text="Quantity" FontWeight="SemiBold" HorizontalAlignment="Center" VerticalAlignment="Bottom"/>
+        <TextBlock Foreground="White" Grid.Row="1" Grid.Column="2" Text="Exchange" FontWeight="SemiBold" HorizontalAlignment="Center" VerticalAlignment="Bottom"/>
+        <TextBlock Foreground="White" Grid.Row="1" Grid.Column="3" Text="Currency" FontWeight="SemiBold" HorizontalAlignment="Center" VerticalAlignment="Bottom"/>
+        <TextBlock Foreground="White" Grid.Row="1" Grid.Column="4" Text="Action" FontWeight="SemiBold" HorizontalAlignment="Center" VerticalAlignment="Bottom"/>
+        <TextBlock Foreground="White" Grid.Row="1" Grid.Column="5" Text="Profit" FontWeight="SemiBold" HorizontalAlignment="Center" VerticalAlignment="Bottom"/>
+        <TextBlock Foreground="White" Grid.Row="1" Grid.Column="6" Text="Date" FontWeight="SemiBold" HorizontalAlignment="Center" VerticalAlignment="Bottom"/>
+        <TextBlock Foreground="White" Grid.Row="1" Grid.Column="7" Text="Time" FontWeight="SemiBold" HorizontalAlignment="Center" VerticalAlignment="Bottom"/>
+        
+        <ListBox Width="1030" CornerRadius="15" Grid.Column="0" Grid.ColumnSpan="8" Grid.Row="2" ItemsSource="{Binding Orders}" Background="#0E0E22" Foreground="White" FontWeight="ExtraLight" >
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <Grid.ColumnDefinitions>*,*,*,*,*,*,*,*</Grid.ColumnDefinitions>
+                        
+                        <TextBlock Grid.Column="0" Text="{Binding Price}" HorizontalAlignment="Center"/>
+                        <TextBlock Grid.Column="1" Text="{Binding Quantity}" HorizontalAlignment="Center"/>
+                        <TextBlock Grid.Column="2" Text="{Binding Exchange}" HorizontalAlignment="Center"/>
+                        <TextBlock Grid.Column="3" Text="{Binding Currency}" HorizontalAlignment="Center"/>
+                        <TextBlock Grid.Column="4" Text="{Binding Action}" HorizontalAlignment="Center"/>
+                        <TextBlock Grid.Column="5" Text="{Binding Profit}" HorizontalAlignment="Center"/>
+                        <TextBlock Grid.Column="6" Text="{Binding Date}" HorizontalAlignment="Center"/>
+                        <TextBlock Grid.Column="7" Text="{Binding Time}" HorizontalAlignment="Center"/>
+                    </Grid>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+
+    </Grid>
+    
+</UserControl>

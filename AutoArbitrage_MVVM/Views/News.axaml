@@ -1,0 +1,120 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="1080" d:DesignHeight="621"
+             xmlns:viewModels="clr-namespace:AutoArbitrage_MVVM.ViewModels"
+             Width="1080" Height="621"
+             x:Class="AutoArbitrage_MVVM.Views.News"
+             x:DataType="viewModels:NewsViewModel">
+    <Grid Background="#121528">
+        
+        <Grid.RowDefinitions>*,580</Grid.RowDefinitions>
+        
+        <StackPanel Grid.Row="0" Orientation="Horizontal">
+            <TextBlock Foreground="White" 
+                       FontWeight="SemiBold" 
+                       FontSize="22" 
+                       Margin="36,10,0,14">News and Updates</TextBlock>
+            <TextBlock
+                Text="Next News Update In:"
+                Foreground="White"
+                HorizontalAlignment="Center"
+                FontSize="20"
+                FontWeight="ExtraLight"
+                Margin="460,12,0,14"/>
+            <TextBlock
+                Text="{Binding Countdown}"
+                Name="Countdown"
+                Foreground="Orange"
+                HorizontalAlignment="Center"
+                FontSize="22"
+                FontWeight="Bold"
+                Margin="10,11,0,0"/>
+        </StackPanel>
+
+            
+        <StackPanel Grid.Row="1" Background="#121528" Orientation="Horizontal">
+            <ListBox 
+                Name="NewsList" CornerRadius="16" Width="680" Height="550" MaxHeight="600" 
+                Background="Transparent" HorizontalAlignment="Left" Margin="22,0,0,0">
+            </ListBox>
+            
+            <StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock
+                        Margin="20,20,0,0"
+                        Padding="12"
+                        Foreground="White"
+                        Text="News Powered By :"/>
+                    
+                    <Image Source="D:\JetBrains Rider\Projects\AutoArbitrage_MVVM\AutoArbitrage_MVVM\Assets\coindesk.png"
+                           Height="20"
+                           Margin="0,20,0,0"/>
+                    
+                    <TextBlock
+                        Margin="-7.5,20,0,0"
+                        Padding="12"
+                        FontSize="16"
+                        FontWeight="650"
+                        Foreground="White"
+                        Text="CoinDesk"/>
+                </StackPanel>
+                
+                <TextBlock
+                    Margin="20,10,0,0"
+                    Padding="12"
+                    FontSize="20"
+                    FontWeight="SemiBold"
+                    Foreground="White"
+                    Text="Disclaimer:"/>
+                
+                <TextBlock
+                    Margin="20,-10,0,0"
+                    Padding="12"
+                    Width="325"
+                    FontWeight="SemiLight"
+                    Foreground="White"
+                    TextWrapping="Wrap"
+                    LetterSpacing="0.3"
+                    LineSpacing="4"
+                    Text="The sentiment analysis provided on news is done by AI. While useful, it may miss context or important details."/>
+                <TextBlock
+                    Margin="20,-15,0,0"
+                    Padding="12"
+                    Width="325"
+                    FontWeight="SemiLight"
+                    Foreground="White"
+                    TextWrapping="Wrap"
+                    LetterSpacing="0.3"
+                    LineSpacing="4"
+                    Text="Always double-check the information yourself. Relying solely on AI can lead to mistakes."/>
+                
+                <TextBlock
+                    Margin="20,-15,0,0"
+                    Padding="12"
+                    Width="325"
+                    FontWeight="SemiLight"
+                    Foreground="White"
+                    TextWrapping="Wrap"
+                    LetterSpacing="0.3"
+                    LineSpacing="4"
+                    Text="Do thorough research from multiple sources before making any trading decisions. Don’t let automated tools be your only guide."/>
+                
+                <TextBlock
+                    Margin="20,-15,0,0"
+                    Padding="12"
+                    Width="325"
+                    FontWeight="Regular"
+                    Foreground="Orange"
+                    TextWrapping="Wrap"
+                    LetterSpacing="0.3"
+                    LineSpacing="4"
+                    Text="Stay informed and cautious."/>
+                
+            </StackPanel>
+        </StackPanel>
+            
+
+    </Grid>
+</UserControl>

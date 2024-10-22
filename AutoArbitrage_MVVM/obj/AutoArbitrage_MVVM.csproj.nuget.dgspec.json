@@ -1,0 +1,109 @@
+{
+  "format": 1,
+  "restore": {
+    "D:\\JetBrains Rider\\Projects\\AutoArbitrage_MVVM\\AutoArbitrage_MVVM\\AutoArbitrage_MVVM.csproj": {}
+  },
+  "projects": {
+    "D:\\JetBrains Rider\\Projects\\AutoArbitrage_MVVM\\AutoArbitrage_MVVM\\AutoArbitrage_MVVM.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "D:\\JetBrains Rider\\Projects\\AutoArbitrage_MVVM\\AutoArbitrage_MVVM\\AutoArbitrage_MVVM.csproj",
+        "projectName": "AutoArbitrage_MVVM",
+        "projectPath": "D:\\JetBrains Rider\\Projects\\AutoArbitrage_MVVM\\AutoArbitrage_MVVM\\AutoArbitrage_MVVM.csproj",
+        "packagesPath": "C:\\Users\\rhyth\\.nuget\\packages\\",
+        "outputPath": "D:\\JetBrains Rider\\Projects\\AutoArbitrage_MVVM\\AutoArbitrage_MVVM\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\rhyth\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0": {
+            "targetAlias": "net8.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "dependencies": {
+            "Avalonia": {
+              "target": "Package",
+              "version": "[11.2.0-rc1, )"
+            },
+            "Avalonia.Controls.DataGrid": {
+              "target": "Package",
+              "version": "[11.2.0-rc1, )"
+            },
+            "Avalonia.Desktop": {
+              "target": "Package",
+              "version": "[11.2.0-rc1, )"
+            },
+            "Avalonia.Diagnostics": {
+              "target": "Package",
+              "version": "[11.2.0-rc1, )"
+            },
+            "Avalonia.Fonts.Inter": {
+              "target": "Package",
+              "version": "[11.2.0-rc1, )"
+            },
+            "Avalonia.ReactiveUI": {
+              "target": "Package",
+              "version": "[11.2.0-rc1, )"
+            },
+            "Avalonia.Themes.Fluent": {
+              "target": "Package",
+              "version": "[11.2.0-rc1, )"
+            },
+            "Binance.Net": {
+              "target": "Package",
+              "version": "[10.6.1, )"
+            },
+            "Bybit.Net": {
+              "target": "Package",
+              "version": "[3.14.3, )"
+            },
+            "CommunityToolkit.Mvvm": {
+              "target": "Package",
+              "version": "[8.3.2, )"
+            },
+            "WebSocketSharp": {
+              "target": "Package",
+              "version": "[1.0.3-rc11, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.303/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}

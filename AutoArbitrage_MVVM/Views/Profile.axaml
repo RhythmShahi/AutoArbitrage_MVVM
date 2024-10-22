@@ -1,0 +1,70 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:viewModels="clr-namespace:AutoArbitrage_MVVM.ViewModels"
+             mc:Ignorable="d" d:DesignWidth="1080" d:DesignHeight="621"
+             Width="1080" Height="621"
+             x:Class="AutoArbitrage_MVVM.Views.Profile"
+             x:DataType="viewModels:ProfileViewModel"
+             Background="#121528">
+    
+     <Grid VerticalAlignment="Top">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0.50*"/>
+            <ColumnDefinition Width="0.50*"/>
+        </Grid.ColumnDefinitions>
+        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Left">
+            <Rectangle Height="250.5" Width="250.5" Fill="#D9D9D9" Margin="39,10,0,0"/>
+            <StackPanel Orientation="Vertical" Margin="22.5,0,0,0" VerticalAlignment="Center">
+              <TextBlock Foreground="#FFFFFF" FontSize="61.5" Text="Anushka Roy" FontWeight="SemiBold" Margin="0,170.75,0,0" />
+              <TextBlock Foreground="#FFFFFF" FontSize="18" Text="Joined 3rd June, 2024" />
+            </StackPanel>
+        </StackPanel>
+
+        <StackPanel Grid.Row="1">
+             <TextBlock Foreground="#FFFFFF" FontSize="24" Text="Name: Anushka Manjooran" Margin="39,65,0,0"/>
+             <TextBlock Foreground="#FFFFFF" FontSize="24" Text="Email Address: royanushka971@gmail.com" Margin="39,36,0,0"/>
+             <TextBlock Foreground="#FFFFFF" FontSize="24" Text="Binance Account API: ******************sl9" Margin="39,36,0,0"/>
+             <TextBlock Foreground="#FFFFFF" FontSize="24" Text="OKX Account API: ********************a2e" Margin="39,36,0,0"/>
+        </StackPanel>
+
+        <StackPanel Grid.Row="1" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Top">
+            <TextBlock Foreground="#FFFFFF" FontSize="24" Text="Mobile Number: +971-521842486" Margin="112.5,57.5,0,0"/>
+            <TextBlock Foreground="#FFFFFF" FontSize="24" Text="Country Of Residence: U.A.E." Margin="112.5,36,0,0"/>  
+           
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                <Button  
+                CornerRadius="12" 
+                Height="37.5" Width="92.25" 
+                Background="#FFFFFF" 
+                Foreground="#0E0E22"
+                HorizontalContentAlignment="Center"
+                VerticalContentAlignment="Center" 
+                FontSize="18"
+                Margin="114.5,90,0,0" 
+                Content="Edit Info">
+                </Button>
+                
+                <Button  
+                CornerRadius="12" 
+                Height="37.5"
+                Width="177.25" 
+                Background="#FFFFFF" 
+                Foreground="#0E0E22"
+                HorizontalContentAlignment="Center"
+                VerticalContentAlignment="Center" 
+                FontSize="18" Margin="37.5,90,0,0"
+                Content="Change Password">
+                </Button>
+              </StackPanel>
+        </StackPanel>
+    </Grid>
+    
+</UserControl>
