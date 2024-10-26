@@ -68,6 +68,10 @@
               "target": "Package",
               "version": "[11.2.0-rc1, )"
             },
+            "BCrypt.Net": {
+              "target": "Package",
+              "version": "[0.1.0, )"
+            },
             "Binance.Net": {
               "target": "Package",
               "version": "[10.6.1, )"
@@ -79,6 +83,10 @@
             "CommunityToolkit.Mvvm": {
               "target": "Package",
               "version": "[8.3.2, )"
+            },
+            "MySql.Data": {
+              "target": "Package",
+              "version": "[9.1.0, )"
             },
             "WebSocketSharp": {
               "target": "Package",

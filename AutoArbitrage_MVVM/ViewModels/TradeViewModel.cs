@@ -16,6 +16,7 @@ using CommunityToolkit.Mvvm.Input;
 using CryptoExchange.Net.CommonObjects;
 using Newtonsoft.Json.Linq;
 using WebSocketSharp;
+using MySql.Data.MySqlClient;
 
 namespace AutoArbitrage_MVVM.ViewModels;
 
@@ -51,6 +52,8 @@ public partial class TradeViewModel : ObservableObject
     
     private decimal _btcPrice_bybit;
     private decimal _ethPrice_bybit;
+    
+    private string connectionString = "Server=database-1.c1auqyeukz94.me-central-1.rds.amazonaws.com;Database=userdb;User ID=admin;Password=autoarbitrage12;";
 
     // ***Observable Properties***
     
@@ -176,6 +179,8 @@ public partial class TradeViewModel : ObservableObject
 
         InitializeWebSocketsAsync();
     }
+    
+    
     
     
     private async Task InitializeWebSocketsAsync()

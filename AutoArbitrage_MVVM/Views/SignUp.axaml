@@ -175,6 +175,7 @@
                                         <TextBox 
                                                 Name="Password"
                                                 Text="{Binding Password, Mode=TwoWay}"
+                                                PasswordChar="*"
                                                 Height="40"
                                                 Foreground="Black"
                                                 Background="#D9D9D9"
@@ -190,6 +191,7 @@
                                         <TextBox 
                                                 Name="ConfirmPassword"
                                                 Text="{Binding ConfirmPassword, Mode=TwoWay}"
+                                                PasswordChar="*"
                                                 Height="40"
                                                 Foreground="Black"
                                                 Background="#D9D9D9"
