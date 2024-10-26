@@ -168,6 +168,36 @@
                                                 LostFocus="Email_OnLostFocus"/>
                                         
                                         <TextBlock 
+                                                Text="Full Name"
+                                                Foreground="#D9D9D9"
+                                                Margin="0,20,0,0"/>
+                                        
+                                        <TextBox 
+                                                Name="FullName"
+                                                Text="{Binding FullName, Mode=TwoWay}"
+                                                Height="40"
+                                                Foreground="Black"
+                                                Background="#D9D9D9"
+                                                FontSize="20"
+                                                GotFocus="FullName_OnGotFocus" 
+                                                LostFocus="FullName_OnLostFocus"/>
+                                        
+                                        <TextBlock 
+                                                Text="Phone Number"
+                                                Foreground="#D9D9D9"
+                                                Margin="0,20,0,0"/>
+                                        
+                                        <TextBox 
+                                                Name="PhoneNumber"
+                                                Text="{Binding PhoneNumber, Mode=TwoWay}"
+                                                Height="40"
+                                                Foreground="Black"
+                                                Background="#D9D9D9"
+                                                FontSize="20"
+                                                GotFocus="PhoneNumber_OnGotFocus" 
+                                                LostFocus="PhoneNumber_OnLostFocus"/>
+                                        
+                                        <TextBlock 
                                                 Text="Password"
                                                 Foreground="#D9D9D9"
                                                 Margin="0,20,0,0"/>
@@ -199,36 +229,6 @@
                                                 GotFocus="ConfirmPassword_OnGotFocus" 
                                                 LostFocus="ConfirmPassword_OnLostFocus"/>
                                         
-                                        <TextBlock 
-                                                Text="Binance API Key"
-                                                Foreground="#D9D9D9"
-                                                Margin="0,20,0,0"/>
-                                        
-                                        <TextBox 
-                                                Name="Binance_API_Key"
-                                                Text="{Binding BinanceKey, Mode=TwoWay}"
-                                                Height="40"
-                                                Foreground="Black"
-                                                Background="#D9D9D9"
-                                                FontSize="20"
-                                                GotFocus="BinanceAPIKey_OnGotFocus" 
-                                                LostFocus="BinanceAPIKey_OnLostFocus"/>
-                                        
-                                        <TextBlock 
-                                                Text="ByBit API Key"
-                                                Foreground="#D9D9D9"
-                                                Margin="0,20,0,0"/>
-                                        
-                                        <TextBox 
-                                                Name="ByBit_API_Key"
-                                                Text="{Binding BybitKey, Mode=TwoWay}"
-                                                Height="40"
-                                                Foreground="Black"
-                                                Background="#D9D9D9"
-                                                FontSize="20"
-                                                GotFocus="ByBitAPIKey_OnGotFocus" 
-                                                LostFocus="ByBitAPIKey_OnLostFocus"/>
-                                        
                                         <Button 
                                                 Name="SignUpButton"
                                                 Content="Sign Up"
@@ -246,7 +246,7 @@
 
                                         <Button
                                                 Name="ToLoginButton"
-                                                Content="Already have an account? Login here."
+                                                Content="New To AutoArbitrage? Click Here"
                                                 Command="{Binding ToLogin}"
                                                 Background="#0D0C21"
                                                 Margin="0,10,0,0"

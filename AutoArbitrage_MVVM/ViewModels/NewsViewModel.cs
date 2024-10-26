@@ -22,8 +22,6 @@ public partial class NewsViewModel : ObservableObject
     [ObservableProperty] 
     private string _countdown;
     
-    
-    
 
     public NewsViewModel()
     {

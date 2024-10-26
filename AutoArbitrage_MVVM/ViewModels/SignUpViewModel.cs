@@ -2,6 +2,7 @@
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
+using AutoArbitrage_MVVM.Services;
 using AutoArbitrage_MVVM.Views;
 using Avalonia.Controls;
 using Avalonia.Threading;
@@ -22,9 +23,9 @@ namespace AutoArbitrage_MVVM.ViewModels
 
         [ObservableProperty] private string confirmPassword;
 
-        [ObservableProperty] private string binanceKey;
+        [ObservableProperty] private string fullName;
 
-        [ObservableProperty] private string bybitKey;
+        [ObservableProperty] private string phoneNumber;
 
         [ObservableProperty] private string errorMessage;
 
@@ -40,7 +41,7 @@ namespace AutoArbitrage_MVVM.ViewModels
         {
             if (string.IsNullOrEmpty(Email) || string.IsNullOrEmpty(Password) ||
                 string.IsNullOrEmpty(ConfirmPassword) ||
-                string.IsNullOrEmpty(BinanceKey) || string.IsNullOrEmpty(BybitKey))
+                string.IsNullOrEmpty(FullName) || string.IsNullOrEmpty(phoneNumber))
             {
                 ErrorMessage = "Please fill in all fields.";
                 return;
@@ -81,15 +82,15 @@ namespace AutoArbitrage_MVVM.ViewModels
                 var hashedPassword = HashPassword(Password, salt);
 
                 // Insert the new user with the hashed password and salt
-                string insertUserQuery = @"INSERT INTO users (email, password_hash, salt, binance_key, bybit_key) 
-                                           VALUES (@Email, @PasswordHash, @Salt, @BinanceKey, @BybitKey)";
+                string insertUserQuery = @"INSERT INTO users (email, password_hash, salt, fullname, phone) 
+                                           VALUES (@Email, @PasswordHash, @Salt, @FullName, @PhoneNumber)";
                 using (var insertCmd = new MySqlCommand(insertUserQuery, connection))
                 {
                     insertCmd.Parameters.AddWithValue("@Email", Email);
                     insertCmd.Parameters.AddWithValue("@PasswordHash", hashedPassword);
                     insertCmd.Parameters.AddWithValue("@Salt", salt);
-                    insertCmd.Parameters.AddWithValue("@BinanceKey", BinanceKey);
-                    insertCmd.Parameters.AddWithValue("@BybitKey", BybitKey);
+                    insertCmd.Parameters.AddWithValue("@FullName", FullName);
+                    insertCmd.Parameters.AddWithValue("@PhoneNumber", PhoneNumber);
                     await insertCmd.ExecuteNonQueryAsync();
                 }
 
@@ -103,6 +104,8 @@ namespace AutoArbitrage_MVVM.ViewModels
             {
                 ErrorMessage = $"Error: {ex.Message}";
             }
+            
+            UserService.Instance.Email = this.Email;
         }
 
         // Generate a unique salt for each user

@@ -68,23 +68,23 @@ public partial class SignUp : Window
         ConfirmPassword.Foreground = Brushes.Black;
     }
 
-    private void BinanceAPIKey_OnGotFocus(object? sender, GotFocusEventArgs e)
+    private void FullName_OnGotFocus(object? sender, GotFocusEventArgs e)
     {
-        Binance_API_Key.Foreground = Brushes.White;
+        FullName.Foreground = Brushes.White;
     }
 
-    private void BinanceAPIKey_OnLostFocus(object? sender, RoutedEventArgs e)
+    private void FullName_OnLostFocus(object? sender, RoutedEventArgs e)
     {
-        Binance_API_Key.Foreground = Brushes.Black;
+        FullName.Foreground = Brushes.Black;
     }
 
-    private void ByBitAPIKey_OnGotFocus(object? sender, GotFocusEventArgs e)
+    private void PhoneNumber_OnGotFocus(object? sender, GotFocusEventArgs e)
     {
-        ByBit_API_Key.Foreground = Brushes.White;
+        PhoneNumber.Foreground = Brushes.White;
     }
 
-    private void ByBitAPIKey_OnLostFocus(object? sender, RoutedEventArgs e)
+    private void PhoneNumber_OnLostFocus(object? sender, RoutedEventArgs e)
     {
-        ByBit_API_Key.Foreground = Brushes.Black;
+        PhoneNumber.Foreground = Brushes.Black;
     }
 }

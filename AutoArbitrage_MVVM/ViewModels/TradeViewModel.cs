@@ -6,6 +6,7 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using AutoArbitrage_MVVM.Services;
 using Avalonia.Controls;
 using Avalonia.Media;
 using Avalonia.Threading;
@@ -24,6 +25,8 @@ public partial class TradeViewModel : ObservableObject
 {
     // ***Non-Observable Properties**
     private WebSocket _binanceFRWebSocket;
+    
+    private static readonly HttpClient client = new HttpClient();
 
     private BinanceSocketClient _binanceSocketClient;
     private BybitSocketClient _bybitSocketClient;
@@ -54,6 +57,13 @@ public partial class TradeViewModel : ObservableObject
     private decimal _ethPrice_bybit;
     
     private string connectionString = "Server=database-1.c1auqyeukz94.me-central-1.rds.amazonaws.com;Database=userdb;User ID=admin;Password=autoarbitrage12;";
+    
+    private string? _email;
+    public string? Email
+    {
+        get => _email;
+        set => SetProperty(ref _email, value);
+    }
 
     // ***Observable Properties***
     
@@ -161,8 +171,11 @@ public partial class TradeViewModel : ObservableObject
         get => _selectedCurrency;
         set
         {
-            SetProperty(ref _selectedCurrency, value, SelectedCurrency);
+            SetProperty(ref _selectedCurrency, value, nameof(SelectedCurrency));
             OnCurrencyChanged();
+
+            // Update the database with the new selected currency
+            _ = SetCurrency(value);
         }
     }
 
@@ -175,12 +188,108 @@ public partial class TradeViewModel : ObservableObject
 
         CurrencyOptions = new List<string> { "Bitcoin", "Ethereum" };
 
+        UserService.Instance.OnEmailChanged += (sender, args) =>
+        {
+            Email = UserService.Instance.Email;
+            Console.WriteLine($"TradeViewModel loaded with email: {Email}");
+        };
+
+        Email = UserService.Instance.Email;
+        
         _selectedCurrency = "Bitcoin";
 
         InitializeWebSocketsAsync();
+        InitializeCurrency();
+    }
+    
+    public async Task InitializeCurrency()
+    {
+        string dbCurrency = await GetCurrency();
+        if (dbCurrency != null)
+        {
+            SelectedCurrency = dbCurrency;
+            OnPropertyChanged(nameof(SelectedCurrency)); // Ensures ComboBox updates
+        }
+        else
+        {
+            Console.WriteLine("No currency set in database; using default.");
+        }
     }
     
     
+    private async Task SetCurrency(string currency)
+    {
+        
+        string updateQuery = "UPDATE current_currency SET currency = @currency WHERE email = @Email";
+        string insertQuery = "INSERT INTO current_currency (currency, email) VALUES (@currency, @Email)";
+
+        using (var connection = new MySqlConnection(connectionString))
+        {
+            await connection.OpenAsync();
+
+            using (var updateCommand = new MySqlCommand(updateQuery, connection))
+            {
+                updateCommand.Parameters.AddWithValue("@currency", currency);
+                updateCommand.Parameters.AddWithValue("@Email", Email);
+
+                try
+                {
+                    // Try to update the currency
+                    int rowsAffected = await updateCommand.ExecuteNonQueryAsync();
+
+                    // If no rows were updated, insert a new row with the email and currency
+                    if (rowsAffected == 0)
+                    {
+                        using (var insertCommand = new MySqlCommand(insertQuery, connection))
+                        {
+                            insertCommand.Parameters.AddWithValue("@currency", currency);
+                            insertCommand.Parameters.AddWithValue("@Email", Email);
+                            await insertCommand.ExecuteNonQueryAsync();
+                        }
+                    }
+
+                    Console.WriteLine($"Current currency '{currency}' set in database for email {Email}.");
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Error setting current currency: {ex.Message}");
+                }
+            }
+        }
+    }
+
+
+    
+    private async Task<string> GetCurrency()
+    {
+        string query = "SELECT currency FROM current_currency WHERE email = @Email LIMIT 1";
+        string currency = null;
+
+        using (var connection = new MySqlConnection(connectionString))
+        {
+            await connection.OpenAsync();
+
+            using (var command = new MySqlCommand(query, connection))
+            {
+                command.Parameters.AddWithValue("@Email", Email);
+
+                try
+                {
+                    // Execute the query and read the result asynchronously
+                    var result = await command.ExecuteScalarAsync();
+                    currency = result?.ToString();
+                    Console.WriteLine($"Retrieved currency '{currency}' from database for email {Email}.");
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Error retrieving current currency: {ex.Message}");
+                }
+            }
+        }
+
+        return currency;
+    }
+
     
     
     private async Task InitializeWebSocketsAsync()

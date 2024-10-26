@@ -2,6 +2,7 @@
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
+using AutoArbitrage_MVVM.Services;
 using AutoArbitrage_MVVM.Views;
 using Avalonia.Controls;
 using Avalonia.Threading;
@@ -80,6 +81,9 @@ public partial class LoginViewModel : ObservableObject
         {
             ErrorMessage = $"Error: {ex.Message}";
         }
+        
+        UserService.Instance.Email = this.Email;
+        Console.WriteLine(UserService.Instance.Email);
     }
 
     // Hash the password with the salt
