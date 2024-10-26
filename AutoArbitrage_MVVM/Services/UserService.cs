@@ -20,6 +20,7 @@ public class UserService
             }
         }
     }
+    
 
     public event EventHandler? OnEmailChanged;
 }

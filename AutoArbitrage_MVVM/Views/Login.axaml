@@ -180,7 +180,7 @@
 
                                         <Button
                                                 Name="ToLoginButton"
-                                                Content="Already have an account? Login here."
+                                                Content="New To AutoArbitrage? Click Here"
                                                 Command="{Binding ToSignUp}"
                                                 Background="#0D0C21"
                                                 Margin="0,10,0,0"

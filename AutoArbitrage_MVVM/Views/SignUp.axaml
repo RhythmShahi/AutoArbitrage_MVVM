@@ -246,7 +246,7 @@
 
                                         <Button
                                                 Name="ToLoginButton"
-                                                Content="New To AutoArbitrage? Click Here"
+                                                Content="Already have an account? Login here."
                                                 Command="{Binding ToLogin}"
                                                 Background="#0D0C21"
                                                 Margin="0,10,0,0"

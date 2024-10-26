@@ -4,6 +4,7 @@
     <option name="projectPerEditor">
       <map>
         <entry key="AutoArbitrage_MVVM/App.axaml" value="AutoArbitrage_MVVM/AutoArbitrage_MVVM.csproj" />
+        <entry key="AutoArbitrage_MVVM/Views/EditProfile.axaml" value="AutoArbitrage_MVVM/AutoArbitrage_MVVM.csproj" />
         <entry key="AutoArbitrage_MVVM/Views/Login.axaml" value="AutoArbitrage_MVVM/AutoArbitrage_MVVM.csproj" />
         <entry key="AutoArbitrage_MVVM/Views/MainWindow.axaml" value="AutoArbitrage_MVVM/AutoArbitrage_MVVM.csproj" />
         <entry key="AutoArbitrage_MVVM/Views/News.axaml" value="AutoArbitrage_MVVM/AutoArbitrage_MVVM.csproj" />

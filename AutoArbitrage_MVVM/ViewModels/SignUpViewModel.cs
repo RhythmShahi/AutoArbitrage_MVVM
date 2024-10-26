@@ -106,6 +106,7 @@ namespace AutoArbitrage_MVVM.ViewModels
             }
             
             UserService.Instance.Email = this.Email;
+            
         }
 
         // Generate a unique salt for each user
