@@ -183,11 +183,11 @@
                 HorizontalAlignment="Center"
                 HorizontalContentAlignment="Center"/>
             
-            <Rectangle 
+            <Image 
                 Grid.Column="13" 
                 Height="63" 
                 Width="63" 
-                Fill="White" 
+                Source="D:\JetBrains Rider\Projects\AutoArbitrage_MVVM\AutoArbitrage_MVVM\Assets\user-circle.png" 
                 HorizontalAlignment="Left"/>
         </Grid>
         

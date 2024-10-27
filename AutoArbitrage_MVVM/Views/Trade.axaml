@@ -202,10 +202,37 @@
             <Grid>
                 <Rectangle HorizontalAlignment="Center" VerticalAlignment="Top" 
                            RadiusX="16.5" RadiusY="16.5" Height="210" Width="316.5" 
-                           Fill="#0E0E22" Margin="0,0,34,0"></Rectangle>
+                           Fill="#0E0E22" Margin="0,0,34,0"/>
                 <Rectangle HorizontalAlignment="Center" VerticalAlignment="Bottom" 
                            RadiusX="16.5" RadiusY="16.5" Height="377" Width="316.5" 
-                           Fill="#0E0E22" Margin="0,221.5,34,0"></Rectangle>
+                           Fill="#0E0E22" Margin="0,221.5,34,0"/>
+                <Border Name="LockBox" HorizontalAlignment="Center" VerticalAlignment="Bottom" 
+                           CornerRadius="16.5" Height="377" Width="316.5" 
+                           Background="#05051A" Margin="0,221.5,34,0" ZIndex="1" Opacity="15">
+                    <StackPanel HorizontalAlignment="Center">
+                    
+                        <Image Name="Lock" Source="D:\JetBrains Rider\Projects\AutoArbitrage_MVVM\AutoArbitrage_MVVM\Assets\lock.png" 
+                               Height="120" ZIndex="3" Margin="0,90,0,0"></Image>
+                        
+                        <TextBlock
+                            Name="LockText"
+                            Text="Please enter your API Keys and Secrets in the Profile page to start trading."
+                            Width="280"
+                            Height="200"
+                            Foreground="White"
+                            FontWeight="Regular"
+                            FontSize="18"
+                            TextAlignment="Center"
+                            TextWrapping="Wrap"
+                            Margin="0,15,0,0" 
+                            ZIndex="1" 
+                            HorizontalAlignment="Center"/>
+                        
+                    </StackPanel>
+                    
+                </Border>
+                
+                
                 <StackPanel>
                     
                     
