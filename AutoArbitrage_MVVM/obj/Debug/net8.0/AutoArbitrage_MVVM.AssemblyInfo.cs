@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("AutoArbitrage_MVVM")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+ce8c822f5442836d1313853c0f7db9e452c10c50")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+e30ef9decb32e06a26b73ae527a698b433726355")]
 [assembly: System.Reflection.AssemblyProductAttribute("AutoArbitrage_MVVM")]
 [assembly: System.Reflection.AssemblyTitleAttribute("AutoArbitrage_MVVM")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

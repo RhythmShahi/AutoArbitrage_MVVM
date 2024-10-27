@@ -211,7 +211,7 @@
                            Background="#05051A" Margin="0,221.5,34,0" ZIndex="1" Opacity="15">
                     <StackPanel HorizontalAlignment="Center">
                     
-                        <Image Name="Lock" Source="D:\JetBrains Rider\Projects\AutoArbitrage_MVVM\AutoArbitrage_MVVM\Assets\lock.png" 
+                        <Image Name="Lock" Source="/Assets/lock.png" 
                                Height="120" ZIndex="3" Margin="0,90,0,0"></Image>
                         
                         <TextBlock

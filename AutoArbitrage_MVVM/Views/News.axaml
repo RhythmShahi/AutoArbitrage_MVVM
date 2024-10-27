@@ -48,7 +48,7 @@
                         Foreground="White"
                         Text="News Powered By :"/>
                     
-                    <Image Source="D:\JetBrains Rider\Projects\AutoArbitrage_MVVM\AutoArbitrage_MVVM\Assets\coindesk.png"
+                    <Image Source="/Assets/coindesk.png"
                            Height="20"
                            Margin="0,20,0,0"/>
                     

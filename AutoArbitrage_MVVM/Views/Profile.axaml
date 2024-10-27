@@ -21,7 +21,7 @@
         </Grid.RowDefinitions>
 
         <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Left">
-            <Image Source="D:\JetBrains Rider\Projects\AutoArbitrage_MVVM\AutoArbitrage_MVVM\Assets\user-square.png" 
+            <Image Source="/Assets/user-square.png" 
                    Height="250.5" Width="250.5" Margin="39,10,0,0"/>
             <StackPanel Orientation="Vertical" Margin="22.5,0,0,0" VerticalAlignment="Center">
                     <TextBlock Name="FullName" Foreground="#FFFFFF" FontSize="61.5" Text="{Binding Name}" FontWeight="SemiBold" Margin="0,170.75,0,0" />
