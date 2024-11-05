@@ -1,0 +1,257 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="1080" d:DesignHeight="621"
+			 Width="1080" Height="621"
+             Background="#121528"
+             FontFamily="Poppins"
+			  >
+	
+	<UserControl.Styles>
+		<Style Selector="ToggleSwitch">
+			<Setter Property="Foreground" Value="{DynamicResource ThemeForegroundColor}" />
+			<Setter Property="HorizontalAlignment" Value="Left" />
+			<Setter Property="VerticalAlignment" Value="Center" />
+			<Setter Property="HorizontalContentAlignment" Value="Left" />
+			<Setter Property="VerticalContentAlignment" Value="Center" />
+			<Setter Property="FontSize" Value="{DynamicResource FontSizeNormal}" />
+			<Setter Property="KnobTransitions">
+				<Transitions>
+					<DoubleTransition
+						Easing="CubicEaseOut"
+						Property="Canvas.Left"
+						Duration="0:0:0.2" 
+						/>
+				</Transitions>
+			</Setter>
+			<Setter Property="Template">
+				<ControlTemplate TargetType="ToggleSwitch">
+					<Grid Background="{TemplateBinding Background}" RowDefinitions="Auto,*">
+						<!-- Header Content Presenter -->
+						<ContentPresenter x:Name="PART_ContentPresenter"
+										  Grid.Row="0"
+										  Content="{TemplateBinding Content}"
+										  ContentTemplate="{TemplateBinding ContentTemplate}"
+										  RecognizesAccessKey="True"
+										  VerticalAlignment="Top" />
+
+						<!-- Main Switch Area -->
+						<Grid Grid.Row="1"
+							  HorizontalAlignment="Left"
+							  VerticalAlignment="Top">
+							<Grid.RowDefinitions>
+								<RowDefinition Height="Auto" />
+								<RowDefinition Height="Auto" />
+								<RowDefinition Height="Auto" />
+							</Grid.RowDefinitions>
+							<Grid.ColumnDefinitions>
+								<ColumnDefinition Width="Auto" />
+								<ColumnDefinition Width="Auto" />
+								<ColumnDefinition Width="Auto" />
+							</Grid.ColumnDefinitions>
+
+							<Grid x:Name="SwitchAreaGrid"
+								  Grid.RowSpan="1"
+								  Grid.ColumnSpan="2"
+								  TemplatedControl.IsTemplateFocusTarget="True"
+								  Margin="0,5" />
+
+							<!-- Content Presenters for Off and On States -->
+							<ContentPresenter x:Name="PART_OffContentPresenter"
+											  Grid.RowSpan="3"
+											  Grid.Column="2"
+											  Content="{TemplateBinding OffContent}"
+											  ContentTemplate="{TemplateBinding OffContentTemplate}"
+											  HorizontalAlignment="Center"
+											  VerticalAlignment="Center" />
+
+							<ContentPresenter x:Name="PART_OnContentPresenter"
+											  Grid.RowSpan="3"
+											  Grid.Column="2"
+											  Content="{TemplateBinding OnContent}"
+											  ContentTemplate="{TemplateBinding OnContentTemplate}"
+											  HorizontalAlignment="Center"
+											  VerticalAlignment="Center" />
+
+							<!-- Outer Border for the ToggleSwitch -->
+							<Border x:Name="OuterBorder"
+									Grid.Row="1"
+									Height="28.5"
+									Width="55.5"
+									CornerRadius="39.75"
+									Background="#FFFFFF"
+									BorderBrush="#FFFFFF"
+									BorderThickness="1" />
+
+							<!-- Knob Bounds -->
+							<Border x:Name="SwitchKnobBounds"
+									Grid.Row="1"
+									Height="22.5"
+									Width="22.5"
+									Background="#3F3F3F"
+									 />
+
+							<!-- Canvas for the Knob -->
+							<Canvas x:Name="PART_SwitchKnob" Grid.Row="1"
+									HorizontalAlignment="Left"
+									Width="22.5" Height="22.5" Margin="5">
+								<Grid x:Name="PART_MovingKnobs"
+									  Width="22.5" Height="22.5" >
+									<Ellipse x:Name="SwitchKnobOn"
+											 Fill="#10265F"
+											 Width="22.5" Height="22.5" 
+											 />
+									<Ellipse x:Name="SwitchKnobOff"
+											 Fill="#3F3F3F"
+											 Width="22.5" Height="22.5" />
+								</Grid>
+							</Canvas>
+						</Grid>
+					</Grid>
+				</ControlTemplate>
+			</Setter>
+
+			<Style Selector="^ /template/ ContentPresenter#PART_ContentPresenter:empty">
+				<Setter Property="Margin" Value="0" />
+			</Style>
+
+			<!-- PointerOverState -->
+			<Style Selector="^:pointerover /template/ Border#OuterBorder">
+				<Setter Property="BorderBrush" Value="#FFFFFF" />
+				<Setter Property="Background" Value="#FFFFFF" />
+			</Style>
+
+			<Style Selector="^:pointerover /template/ Ellipse#SwitchKnobOff">
+				<Setter Property="Fill" Value="black" />
+			</Style>
+
+			<Style Selector="^:pointerover /template/ Ellipse#SwitchKnobOn">
+				<Setter Property="Fill" Value="black" />
+			</Style>
+
+			<Style Selector="^:pointerover /template/ Border#SwitchKnobBounds">
+				<Setter Property="Background" Value="#FFFFFF" />
+				<Setter Property="BorderBrush" Value="black" />
+			</Style>
+
+			<Style Selector="^:pointerover /template/ Grid#SwitchAreaGrid">
+				<Setter Property="Background" Value="transparent" />
+			</Style>
+
+			<!-- PressedState -->
+			<Style Selector="^:pressed /template/ Border#OuterBorder">
+				<Setter Property="BorderBrush" Value="black" />
+				<Setter Property="Background" Value="#FFFFFF" />
+			</Style>
+
+			<Style Selector="^:pressed /template/ Border#SwitchKnobBounds">
+				<Setter Property="Background" Value="#FFFFFF" />
+				<Setter Property="BorderBrush" Value="black" />
+			</Style>
+
+			<Style Selector="^:pressed /template/ Ellipse#SwitchKnobOff">
+				<Setter Property="Fill" Value="black" />
+			</Style>
+
+			<Style Selector="^:pressed /template/ Ellipse#SwitchKnobOn">
+				<Setter Property="Fill" Value="black" />
+			</Style>
+
+			<Style Selector="^:pressed /template/ Grid#SwitchAreaGrid">
+				<Setter Property="Background" Value="transparent" />
+			</Style>
+
+			
+			<!-- CheckedState -->
+			<Style Selector="^:checked /template/ Border#OuterBorder">
+				<Setter Property="Opacity" Value="1" />
+			</Style>
+
+			<Style Selector="^:checked  /template/ Ellipse#SwitchKnobOff">
+				<Setter Property="Opacity" Value="0" />
+			</Style>
+
+			<Style Selector="^:checked  /template/ Border#SwitchKnobBounds">
+				<Setter Property="Opacity" Value="0" />
+			</Style>
+
+			<Style Selector="^:checked /template/ Ellipse#SwitchKnobOn">
+				<Setter Property="Opacity" Value="1" />
+			</Style>
+
+			<Style Selector="^:checked /template/ ContentPresenter#PART_OffContentPresenter">
+				<Setter Property="Opacity" Value="0" />
+			</Style>
+
+			<Style Selector="^:checked /template/ ContentPresenter#PART_OnContentPresenter">
+				<Setter Property="Opacity" Value="0" />
+			</Style>
+
+			<!--UncheckedState -->
+			<Style Selector="^:unchecked /template/ Border#OuterBorder">
+				<Setter Property="Opacity" Value="1" />
+			</Style>
+
+			<Style Selector="^:unchecked /template/ Ellipse#SwitchKnobOff">
+				<Setter Property="Opacity" Value="1" />
+			</Style>
+
+			<Style Selector="^:unchecked /template/ Ellipse#SwitchKnobOn">
+				<Setter Property="Opacity" Value="0" />
+			</Style>
+
+			<Style Selector="^:unchecked  /template/ Border#SwitchKnobBounds">
+				<Setter Property="Opacity" Value="0" />
+			</Style>
+
+			<Style Selector="^:unchecked /template/ ContentPresenter#PART_OffContentPresenter">
+				<Setter Property="Opacity" Value="0" />
+			</Style>
+
+			<Style Selector="^:unchecked /template/ ContentPresenter#PART_OnContentPresenter">
+				<Setter Property="Opacity" Value="0" />
+			</Style>
+		</Style>
+
+	</UserControl.Styles>
+
+	<Grid>
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition Width="267"/>
+			<ColumnDefinition Width="Auto"/>
+			<ColumnDefinition Width="Auto"/>
+		</Grid.ColumnDefinitions>
+
+		<Grid.RowDefinitions>
+			<RowDefinition Height="Auto"></RowDefinition>
+			<RowDefinition Height="Auto"></RowDefinition>
+		</Grid.RowDefinitions>
+		<StackPanel x:Name="DisplayContent" Grid.Column="1"  >
+			<StackPanel Orientation="Horizontal" Margin="79,100,0,0">
+				<TextBlock Foreground="#FFFFFF" FontSize="18" Text="Dark Mode" xml:space="preserve" FontWeight="Regular"/>
+
+			</StackPanel>
+			<TextBlock Foreground="#FFFFFF" FontSize="12" Text="Switch between Light Mode or Dark Mode according to your preference." Margin="79,5,0,0" FontWeight="Light"/>
+
+			<StackPanel Orientation="Horizontal" Margin="79,64.5,0,0">
+				<TextBlock Foreground="#FFFFFF" FontSize="18" Text="Stacked Horizontal Order Book" FontWeight="Regular"/>
+				
+			</StackPanel>
+			<TextBlock Foreground="#FFFFFF" FontSize="12" Text="Change Order Book orientation to fit better on your device." Margin="79,5,0,0" FontWeight="Light"/>
+
+			<StackPanel Orientation="Horizontal" Margin="79,64.5,0,0">
+				<TextBlock Foreground="#FFFFFF" FontSize="18" Text="View Detailed Past Transactions" FontWeight="Regular"/>
+			</StackPanel>
+			<TextBlock Foreground="#FFFFFF" FontSize="12" Text="Display all possible columns in the Past Transactions Page" Margin="79,5,0,0" FontWeight="Light"/>
+		</StackPanel>
+		
+		<StackPanel Grid.Column="2" Orientation="Vertical"  Margin="200,0,0,0" >
+			
+			<ToggleSwitch Margin="0,90,0,0" />
+			<ToggleSwitch Margin="0,70,0,0" />
+			<ToggleSwitch Margin="0,70.5,0,0" />
+
+		</StackPanel>
+	</Grid>
+</UserControl>

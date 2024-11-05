@@ -4,7 +4,9 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:viewModels="clr-namespace:AutoArbitrage_MVVM.ViewModels"
              mc:Ignorable="d" d:DesignWidth="1080" d:DesignHeight="621"
+			 Width="1080" Height="621"
              x:Class="AutoArbitrage_MVVM.Views.Settings"
+			  Background="#121528"
              x:DataType="viewModels:SettingsViewModel">
 	
 	<UserControl.Styles>
@@ -78,19 +80,19 @@
 		<Grid Grid.Column="0" Margin="32,0,0,0">
 			<Rectangle
 			  HorizontalAlignment="Left"
-			  Width="356" Height="787"
+			  Width="267" Height="590.25"
 			  Fill="#0D0C21"
 			  Opacity="0.77"
 			  RadiusX="22" RadiusY="22"/>
 
 
 			<StackPanel >
-				<Button Content="General" Padding="30,10,0,10" CornerRadius="0" Width="355" Height="70" Background="Transparent" Foreground="White" FontSize="32" FontWeight="Medium" Margin="0,59,0,0"/>
-				<Button Content="Display"  Padding="30,10,0,10" CornerRadius="0" Width="355" Height="70" Background="Transparent"  Foreground="White" FontSize="32" FontWeight="Medium" Margin="0,30,0,0"/>
-				<Button Content="Trading" Padding="30,10,0,10" CornerRadius="0" Width="355" Height="70" Background="Transparent"  Foreground="White" FontSize="32" FontWeight="Medium" Margin="0,30,0,0"/>
-				<Button Content="Wallet" Padding="30,10,0,10" CornerRadius="0" Width="355" Height="70" Background="Transparent"   Foreground="White" FontSize="32" FontWeight="Medium" Margin="0,30,0,0"/>
-				<Button Content="Personal" Padding="30,10,0,10" CornerRadius="0" Width="355" Height="70" Background="Transparent"  Foreground="White" FontSize="32" FontWeight="Medium" Margin="0,30,0,0"/>
-				<Button Content="Miscellaneous" Padding="30,10,0,10" CornerRadius="0" Width="355" Height="70" Background="Transparent"  Foreground="White"  FontSize="32" FontWeight="Medium" Margin="0,30,0,0"/>
+				<Button Content="General" Padding="30,10,0,10" CornerRadius="0" Width="266.25" Height="52.5" Background="Transparent" Foreground="White" FontSize="24" FontWeight="Medium" Margin="0,40,0,0"/>
+				<Button Content="Display"  Padding="30,10,0,10" CornerRadius="0" Width="266.25" Height="52.5" Background="Transparent"  Foreground="White" FontSize="24" FontWeight="Medium" Margin="0,20,0,0"/>
+				<Button Content="Trading" Padding="30,10,0,10" CornerRadius="0" Width="266.25" Height="52.5" Background="Transparent"  Foreground="White" FontSize="24" FontWeight="Medium" Margin="0,20,0,0"/>
+				<Button Content="Wallet" Padding="30,10,0,10" CornerRadius="0" Width="266.25" Height="52.5" Background="Transparent"   Foreground="White" FontSize="24" FontWeight="Medium" Margin="0,20,0,0"/>
+				<Button Content="Personal" Padding="30,10,0,10" CornerRadius="0" Width="266.25" Height="52.5" Background="Transparent"  Foreground="White" FontSize="24" FontWeight="Medium" Margin="0,20,0,0"/>
+				<Button Content="Miscellaneous" Padding="30,10,0,10" CornerRadius="0" Width="266.25" Height="52.5" Background="Transparent"  Foreground="White"  FontSize="24" FontWeight="Medium" Margin="0,20,0,0"/>
 			</StackPanel>
 		</Grid>
 	</Grid>

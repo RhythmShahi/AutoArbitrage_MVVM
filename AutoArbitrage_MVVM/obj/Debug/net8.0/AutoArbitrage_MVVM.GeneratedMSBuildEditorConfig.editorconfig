@@ -23,6 +23,9 @@ build_property.EnableGeneratedComInterfaceComImportInterop =
 [D:/JetBrains Rider/Projects/AutoArbitrage_MVVM/AutoArbitrage_MVVM/App.axaml]
 build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
 
+[D:/JetBrains Rider/Projects/AutoArbitrage_MVVM/AutoArbitrage_MVVM/Views/Display.axaml]
+build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
+
 [D:/JetBrains Rider/Projects/AutoArbitrage_MVVM/AutoArbitrage_MVVM/Views/Login.axaml]
 build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
 
