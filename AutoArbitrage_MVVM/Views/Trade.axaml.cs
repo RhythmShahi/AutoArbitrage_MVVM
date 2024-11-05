@@ -6,14 +6,17 @@ using AutoArbitrage_MVVM.Services;
 using AutoArbitrage_MVVM.ViewModels;
 using Avalonia;
 using Avalonia.Controls;
+using Avalonia.Input;
+using Avalonia.Interactivity;
 using Avalonia.Markup.Xaml;
+using Avalonia.Media;
 using MySql.Data.MySqlClient;
 
 namespace AutoArbitrage_MVVM.Views;
 
 public partial class Trade : UserControl, INotifyPropertyChanged
 {
-    private string connectionString = "Server=database-1.c1auqyeukz94.me-central-1.rds.amazonaws.com;Database=userdb;User ID=admin;Password=autoarbitrage12;";
+    private string connectionString = "Server=autoarbitrage.cri2yu04sa9j.me-central-1.rds.amazonaws.com;Database=userdb;User ID=admin;Password=autoarbitrage12;";
     
     private string? _email;
     public string? Email
@@ -110,5 +113,25 @@ public partial class Trade : UserControl, INotifyPropertyChanged
             LockBox.ZIndex = -1;
             LockText.ZIndex = -1;
         }
+    }
+
+    private void Threshold_OnGotFocus(object? sender, GotFocusEventArgs e)
+    {
+        Threshold.Foreground = Brushes.White;
+    }
+
+    private void Threshold_OnLostFocus(object? sender, RoutedEventArgs e)
+    {
+        Threshold.Foreground = Brushes.Black;
+    }
+
+    private void Size_OnGotFocus(object? sender, GotFocusEventArgs e)
+    {
+        Size.Foreground = Brushes.White;
+    }
+
+    private void Size_OnLostFocus(object? sender, RoutedEventArgs e)
+    {
+        Size.Foreground = Brushes.Black;
     }
 }

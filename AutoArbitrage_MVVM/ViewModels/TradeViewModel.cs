@@ -10,10 +10,14 @@ using AutoArbitrage_MVVM.Services;
 using Avalonia.Controls;
 using Avalonia.Media;
 using Avalonia.Threading;
+using Binance.Net;
 using Binance.Net.Clients;
+using Bybit.Net;
 using Bybit.Net.Clients;
+using Bybit.Net.Enums;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using CryptoExchange.Net.Authentication;
 using CryptoExchange.Net.CommonObjects;
 using Newtonsoft.Json.Linq;
 using WebSocketSharp;
@@ -56,7 +60,7 @@ public partial class TradeViewModel : ObservableObject
     private decimal _btcPrice_bybit;
     private decimal _ethPrice_bybit;
     
-    private string connectionString = "Server=database-1.c1auqyeukz94.me-central-1.rds.amazonaws.com;Database=userdb;User ID=admin;Password=autoarbitrage12;";
+    private string connectionString = "Server=autoarbitrage.cri2yu04sa9j.me-central-1.rds.amazonaws.com;Database=userdb;User ID=admin;Password=autoarbitrage12;";
     
     private string? _email;
     public string? Email
@@ -64,6 +68,8 @@ public partial class TradeViewModel : ObservableObject
         get => _email;
         set => SetProperty(ref _email, value);
     }
+    
+    private bool _isRunning = false;
 
     // ***Observable Properties***
     
@@ -163,8 +169,27 @@ public partial class TradeViewModel : ObservableObject
     // General
     [ObservableProperty] 
     private string _countdown;
+
+    [ObservableProperty] 
+    private string _threshold;
     
+    [RelayCommand]
+    public async Task StartDiscrepancyCheckerAsync()
+    {
+        _isRunning = true;
+        await Task.Delay(100);
+        while (_isRunning)
+        {
+            await CheckPriceDiscrepancyAsync();
+            await Task.Delay(1000);
+        }
+    }
     
+    [RelayCommand]
+    public void StopDiscrepancyChecker()
+    {
+        _isRunning = false;
+    }
 
     public string SelectedCurrency
     {
@@ -180,7 +205,7 @@ public partial class TradeViewModel : ObservableObject
     }
 
     public List<string> CurrencyOptions { get; }
-
+    
     public TradeViewModel()
     {
         _binanceSocketClient = new BinanceSocketClient();
@@ -200,6 +225,8 @@ public partial class TradeViewModel : ObservableObject
 
         InitializeWebSocketsAsync();
         InitializeCurrency();
+
+        StartDiscrepancyCheckerAsync();
     }
     
     public async Task InitializeCurrency()
@@ -799,5 +826,181 @@ public partial class TradeViewModel : ObservableObject
         {
             return $"{timeSpan.Hours:D2}:{timeSpan.Minutes:D2}:{timeSpan.Seconds:D2}";
         }
+        
+        private async Task CheckPriceDiscrepancyAsync()
+        {
+            // Assume these prices are updated in real-time from the Bybit and Binance WebSocket connections
+            decimal bybitPrice = BybitPrice;
+            decimal binancePrice = BinancePrice;
+
+            // Check if there is a discrepancy of $5 or more
+            decimal discrepancy = Math.Abs(bybitPrice - binancePrice);
+            if (discrepancy >= decimal.Parse(Threshold))
+            {
+                // Determine which exchange has the higher and lower price
+                string higherExchange, lowerExchange;
+                decimal higherPrice, lowerPrice;
+                bool isBybitHigher = bybitPrice > binancePrice;
+
+                if (isBybitHigher)
+                {
+                    higherExchange = "Bybit";
+                    higherPrice = bybitPrice;
+                    lowerExchange = "Binance";
+                    lowerPrice = binancePrice;
+                }
+                else
+                {
+                    higherExchange = "Binance";
+                    higherPrice = binancePrice;
+                    lowerExchange = "Bybit";
+                    lowerPrice = bybitPrice;
+                }
+
+                // Log the discrepancy details
+                Console.WriteLine($"Found discrepancy of {discrepancy} dollars");
+
+                // Indicate where to buy and sell based on the price difference
+                Console.WriteLine($"{higherExchange}: {higherPrice} dollars : sell/short position");
+                Console.WriteLine($"{lowerExchange}: {lowerPrice} dollars : buy/long position");
+
+                // Retrieve the best prices from the order books for the lower and higher exchanges
+                var bybitAskPrices = BybitAskPrice?.Split("\n");
+                var bybitBestAskPrice = !string.IsNullOrEmpty(bybitAskPrices?.LastOrDefault())
+                    ? bybitAskPrices.Last()
+                    : bybitAskPrices?.SkipLast(1).LastOrDefault();
+                
+                var bybitBestBidPrice = BybitBidPrice?.Split("\n").FirstOrDefault(); // Best price for selling on Bybit
+                
+                var binanceAskPrices = BinanceAskPrice?.Split("\n");
+                var binanceBestAskPrice = !string.IsNullOrEmpty(binanceAskPrices?.LastOrDefault())
+                    ? binanceAskPrices.Last()
+                    : binanceAskPrices?.SkipLast(1).LastOrDefault();
+
+                var binanceBestBidPrice = BinanceBidPrice?.Split("\n").FirstOrDefault(); // Best price for selling on Binance
+
+                // Determine the entry prices based on whether Bybit or Binance is the buy/sell exchange
+                string longEntryPrice, shortEntryPrice, actualDiscrepancy;
+
+                if (isBybitHigher)
+                {
+                    // Short Bybit, Long Binance
+                    shortEntryPrice = bybitBestBidPrice ?? bybitPrice.ToString();
+                    longEntryPrice = binanceBestAskPrice ?? binancePrice.ToString();
+                    actualDiscrepancy = (binancePrice - bybitPrice).ToString();
+
+                    Console.WriteLine($"Held long position on Binance, entry price = {longEntryPrice}");
+                    Console.WriteLine($"Held short position on Bybit, entry price = {shortEntryPrice}");
+                    Console.WriteLine($"Actual discrepancy = {actualDiscrepancy}");
+                }
+                else
+                {
+                    // Short Binance, Long Bybit
+                    shortEntryPrice = binanceBestBidPrice ?? binancePrice.ToString();
+                    longEntryPrice = bybitBestAskPrice ?? bybitPrice.ToString();
+                    actualDiscrepancy = (bybitPrice - binancePrice).ToString();
+
+                    Console.WriteLine($"Held long position on Bybit, entry price = {longEntryPrice}");
+                    Console.WriteLine($"Held short position on Binance, entry price = {shortEntryPrice}");
+                    Console.WriteLine($"Actual discrepancy = {actualDiscrepancy}");
+                }
+            }
+        }
+
+        public static readonly string Bybit_API_KEY = "aVcZaYygMMUqRwDT4J";
+        public static readonly string Bybit_API_SECRET = "Hsv944KqPncici7DdHBOVuIcSwvypPn9jVnt";
+        public static readonly BybitEnvironment By_env = BybitEnvironment.Testnet;
+        
+        public static readonly string Binance_API_KEY = "099c7a9c36082ba8e20062661f17e291e5bc5b92f8b6c5fd00e0887628b5d113";
+        public static readonly string Binance_API_SECRET = "01be6c5ae8f4c57aafceb0e241ca0ecc38fe61f2801311c8ed98b3465d813b9f";
+        public static readonly BinanceEnvironment Bin_env = BinanceEnvironment.Testnet;
+
+        [ObservableProperty] 
+        private string _quantity;
+        
+        private async Task OpenBybitPositions()
+        {
+            var currency = OnCurrencyChanged();
+            
+            var bybitClient = new BybitRestClient(options =>
+            {
+                options.ApiCredentials = new ApiCredentials(Bybit_API_KEY, Bybit_API_SECRET);
+                options.Environment = By_env;
+            });
+            
+            var newOrder = await bybitClient.V5Api.Trading.PlaceOrderAsync(
+                category: Category.Linear,
+                symbol: currency,
+                side: OrderSide.Buy,
+                type: NewOrderType.Market,
+                quantity: decimal.Parse(Quantity),
+                timeInForce: TimeInForce.ImmediateOrCancel
+            );
+            
+            if (!newOrder.Success)
+            {
+                Console.WriteLine($"Failed to create an order! Error: {newOrder.Error.Message}");
+                return;
+            }
+
+            Console.WriteLine($"Successful order creation! Order ID: {newOrder.Data.OrderId}\n");
+            
+            var positions = await bybitClient.V5Api.Trading.GetPositionsAsync(
+                category: Category.Linear,
+                settleAsset: "USDT"
+            );
+            var positionList = positions.Data.List.ToList();
+            Console.WriteLine($"Found a total of {positionList.Count} positions.\n");
+
+            var position = positionList.FirstOrDefault(z => z.Symbol == currency);
+            if (position == null)
+            {
+                Console.WriteLine("Bybit Position was not found!");
+                return;
+            }
+        }
+        
+        private async Task OpenBinancePositions()
+        {
+            var currency = OnCurrencyChanged();
+            
+            var binanceClient = new BinanceRestClient(options =>
+            {
+                options.ApiCredentials = new ApiCredentials(Binance_API_KEY, Binance_API_SECRET);
+                options.Environment = Bin_env;
+            });
+            
+            var newOrder = await binanceClient.UsdFuturesApi.Trading.PlaceOrderAsync(
+                symbol: currency,
+                side: Binance.Net.Enums.OrderSide.Buy,
+                type: Binance.Net.Enums.FuturesOrderType.Market,
+                quantity: decimal.Parse(Quantity),
+                positionSide: Binance.Net.Enums.PositionSide.Long,
+                timeInForce: Binance.Net.Enums.TimeInForce.ImmediateOrCancel
+            );
+            
+            if (!newOrder.Success)
+            {
+                Console.WriteLine($"Failed to create an order! Error: {newOrder.Error.Message}");
+                return;
+            }
+
+            Console.WriteLine($"Successful order creation! Order ID: {newOrder.Data.Id}\n");
+            
+            var positions = await binanceClient.UsdFuturesApi.Trading.GetPositionsAsync();
+            
+            var positionList = positions.Data.ToList();
+            Console.WriteLine($"Found a total of {positionList.Count} positions.\n");
+
+            var position = positionList.FirstOrDefault(z => z.Symbol == currency);
+            if (position == null)
+            {
+                Console.WriteLine("Binance Position was not found!");
+                return;
+            }
+        }
+        
+        
+
 }
 

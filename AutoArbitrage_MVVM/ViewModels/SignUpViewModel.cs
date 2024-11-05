@@ -15,7 +15,7 @@ namespace AutoArbitrage_MVVM.ViewModels
 {
     public partial class SignUpViewModel : ObservableObject
     {
-        private string connectionString = "Server=database-1.c1auqyeukz94.me-central-1.rds.amazonaws.com;Database=userdb;User ID=admin;Password=autoarbitrage12;";
+        private string connectionString = "Server=autoarbitrage.cri2yu04sa9j.me-central-1.rds.amazonaws.com;Database=userdb;User ID=admin;Password=autoarbitrage12;";
 
         [ObservableProperty] private string email;
 

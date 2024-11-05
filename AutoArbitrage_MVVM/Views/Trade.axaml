@@ -328,24 +328,21 @@
                         FontSize="26"
                         Margin="10,49.5,0,0">
                     </TextBlock>
-                    
-                    <Label Margin="8,14,0,0" FontSize="12" Foreground="White">Price</Label>
-                    <TextBox Margin="0,0,34,0" Background="White" Height="27.75" Width="275.25"></TextBox>
+
+                    <Label Margin="8,10,0,0" FontSize="12" Foreground="White">Threshold</Label>
+                    <TextBox Name="Threshold" GotFocus="Threshold_OnGotFocus" LostFocus="Threshold_OnLostFocus" Text="{Binding Threshold, Mode=TwoWay}" Margin="0,0,34,0" Background="White" Height="27.75" Width="275.25"></TextBox>
                     
                     <Label Margin="8,10,0,0" FontSize="12" Foreground="White">Size</Label>
-                    <TextBox Margin="0,0,34,0" Background="White" Height="27.75" Width="275.25"></TextBox>
-                    
-                    <Label Margin="8,10,0,0" FontSize="12" Foreground="White">Threshold</Label>
-                    <TextBox Margin="0,0,34,0" Background="White" Height="27.75" Width="275.25"></TextBox>
+                    <TextBox Name="Size" GotFocus="Size_OnGotFocus" LostFocus="Size_OnLostFocus" Text="{Binding Quantity}" Margin="0,0,34,0" Background="White" Height="27.75" Width="275.25"></TextBox>
                     
                     
                     
-                    <Button HorizontalAlignment="Center" Margin="0,18,34,0" Height="39.75" Width="173.25" Background="Orange" Foreground="#0E0E22" 
-                            HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="24" FontWeight="Bold">TRADE
+                    <Button HorizontalAlignment="Center" Margin="0,48,34,0" Height="39.75" Width="173.25" Background="Orange" Foreground="#0E0E22" 
+                            HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="24" FontWeight="Bold" Command="{Binding StartDiscrepancyCheckerAsync}">TRADE
                     </Button>
                     
                     <Button HorizontalAlignment="Center" Margin="0,12,34,0" Height="39.75" Width="173.25" Background="DarkRed" Foreground="#0E0E22" 
-                            HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="24" FontWeight="Bold">STOP
+                            HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="24" FontWeight="Bold" Command="{Binding StopDiscrepancyChecker}">STOP
                     </Button>
                     
                 </StackPanel>
