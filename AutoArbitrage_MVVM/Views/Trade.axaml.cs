@@ -134,4 +134,14 @@ public partial class Trade : UserControl, INotifyPropertyChanged
     {
         Size.Foreground = Brushes.Black;
     }
+
+    private void Frequency_OnGotFocus(object? sender, GotFocusEventArgs e)
+    {
+        Frequency.Foreground = Brushes.White;
+    }
+
+    private void Frequency_OnLostFocus(object? sender, RoutedEventArgs e)
+    {
+        Frequency.Foreground = Brushes.Black;
+    }
 }

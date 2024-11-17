@@ -172,6 +172,9 @@ public partial class TradeViewModel : ObservableObject
 
     [ObservableProperty] 
     private string _threshold;
+
+    [ObservableProperty] 
+    private string _frequency;
     
     [RelayCommand]
     public async Task StartDiscrepancyCheckerAsync()
@@ -181,7 +184,7 @@ public partial class TradeViewModel : ObservableObject
         while (_isRunning)
         {
             await CheckPriceDiscrepancyAsync();
-            await Task.Delay(1000);
+            await Task.Delay(int.Parse(Frequency));
         }
     }
     
@@ -757,8 +760,7 @@ public partial class TradeViewModel : ObservableObject
             }
         });
     }
-
-// Bybit Change Color logic
+    
     private void BybitChangeColor(decimal newPrice, decimal previousPrice)
     {
         Dispatcher.UIThread.InvokeAsync(() =>
@@ -782,7 +784,6 @@ public partial class TradeViewModel : ObservableObject
             }
         });
     }
-    
 
     private void FundingRateTimer()
         {
@@ -793,206 +794,286 @@ public partial class TradeViewModel : ObservableObject
             }, TimeSpan.FromSeconds(1));
         }
 
-        private void UpdateCountdown()
-        {
-            var now = DateTime.Now;
-            var timeRemaining = _nextTargetTime - now;
+    private void UpdateCountdown()
+    {
+        var now = DateTime.Now;
+        var timeRemaining = _nextTargetTime - now;
 
-            if (timeRemaining.TotalSeconds <= 0)
+        if (timeRemaining.TotalSeconds <= 0)
+        {
+            UpdateNextTargetTime();
+            timeRemaining = _nextTargetTime - now;
+        }
+
+        Countdown = FormatTimeRemaining(timeRemaining);
+    }
+
+    private void UpdateNextTargetTime()
+    {
+        var now = DateTime.Now.TimeOfDay;
+        foreach (var target in TargetTimes)
+        {
+            if (now < target)
             {
-                UpdateNextTargetTime();
-                timeRemaining = _nextTargetTime - now;
+                _nextTargetTime = DateTime.Today.Add(target);
+                return;
+            }
+        }
+
+        _nextTargetTime = DateTime.Today.Add(TargetTimes[0]).AddDays(1);
+    }
+
+    private string FormatTimeRemaining(TimeSpan timeSpan)
+    {
+        return $"{timeSpan.Hours:D2}:{timeSpan.Minutes:D2}:{timeSpan.Seconds:D2}";
+    }
+    
+    private async Task CheckPriceDiscrepancyAsync()
+    {
+        // Define fee rates
+        decimal binanceTakerFeeRate = 0.0005m; // 0.0500% taker fee rate
+        decimal bybitTakerFeeRate = 0.00055m;   // 0.055% taker fee rate
+
+        decimal bybitPrice = BybitPrice;
+        decimal binancePrice = BinancePrice;
+        decimal discrepancy = Math.Abs(bybitPrice - binancePrice);
+
+        // Check if the discrepancy is greater than or equal to the threshold
+        if (discrepancy >= decimal.Parse(Threshold))
+        {
+            string higherExchange, lowerExchange;
+            decimal higherPrice, lowerPrice;
+            bool isBybitHigher = bybitPrice > binancePrice;
+
+            decimal totalFees = 0;
+
+            if (isBybitHigher)
+            {
+                higherExchange = "Bybit";
+                higherPrice = bybitPrice;
+                lowerExchange = "Binance";
+                lowerPrice = binancePrice;
+
+                decimal orderQuantity = decimal.Parse(Quantity); // Adjust according to your order quantity
+
+                // Calculate the order values
+                decimal bybitOrderValue = orderQuantity / bybitPrice;
+                decimal binanceOrderValue = orderQuantity / binancePrice;
+
+                // Calculate taker fees for Bybit and maker fees for Binance
+                decimal bybitTakerFee = bybitOrderValue * bybitTakerFeeRate;
+                decimal binanceTakerFee = binanceOrderValue * binanceTakerFeeRate;
+
+                // Total fees are the sum of the taker fee (Bybit) and the maker fee (Binance)
+                totalFees = bybitTakerFee + binanceTakerFee;
+            }
+            else
+            {
+                higherExchange = "Binance";
+                higherPrice = binancePrice;
+                lowerExchange = "Bybit";
+                lowerPrice = bybitPrice;
+
+                decimal orderQuantity = decimal.Parse(Quantity); // Adjust according to your order quantity
+
+                // Calculate the order values
+                decimal binanceOrderValue = orderQuantity / binancePrice;
+                decimal bybitOrderValue = orderQuantity / bybitPrice;
+
+                // Calculate maker fee for Binance and taker fee for Bybit
+                decimal binanceTakerFee = binanceOrderValue * binanceTakerFeeRate;
+                decimal bybitTakerFee = bybitOrderValue * bybitTakerFeeRate;
+
+                // Total fees are the sum of the taker fee (Binance) and the maker fee (Bybit)
+                totalFees = binanceTakerFee + bybitTakerFee;
             }
 
-            Countdown = FormatTimeRemaining(timeRemaining);
-        }
+            // Adjust the discrepancy by subtracting total fees
+            decimal netDiscrepancy = discrepancy - totalFees;
 
-        private void UpdateNextTargetTime()
-        {
-            var now = DateTime.Now.TimeOfDay;
-            foreach (var target in TargetTimes)
+            // Proceed only if the net discrepancy meets or exceeds the threshold
+            if (netDiscrepancy >= decimal.Parse(Threshold))
             {
-                if (now < target)
-                {
-                    _nextTargetTime = DateTime.Today.Add(target);
-                    return;
-                }
-            }
-
-            _nextTargetTime = DateTime.Today.Add(TargetTimes[0]).AddDays(1);
-        }
-
-        private string FormatTimeRemaining(TimeSpan timeSpan)
-        {
-            return $"{timeSpan.Hours:D2}:{timeSpan.Minutes:D2}:{timeSpan.Seconds:D2}";
-        }
-        
-        private async Task CheckPriceDiscrepancyAsync()
-        {
-            decimal bybitPrice = BybitPrice;
-            decimal binancePrice = BinancePrice;
-            decimal discrepancy = Math.Abs(bybitPrice - binancePrice);
-
-            if (discrepancy >= decimal.Parse(Threshold))
-            {
-                string higherExchange, lowerExchange;
-                decimal higherPrice, lowerPrice;
-                bool isBybitHigher = bybitPrice > binancePrice;
-
-                if (isBybitHigher)
-                {
-                    higherExchange = "Bybit";
-                    higherPrice = bybitPrice;
-                    lowerExchange = "Binance";
-                    lowerPrice = binancePrice;
-                }
-                else
-                {
-                    higherExchange = "Binance";
-                    higherPrice = binancePrice;
-                    lowerExchange = "Bybit";
-                    lowerPrice = bybitPrice;
-                }
-                
                 Console.WriteLine("\n");
-                Console.WriteLine($"Found discrepancy of {discrepancy} dollars");
+                Console.WriteLine($"Found net discrepancy of {netDiscrepancy} dollars after fees");
                 Console.WriteLine($"{higherExchange}: {higherPrice} dollars : Sell/Short position");
                 Console.WriteLine($"{lowerExchange}: {lowerPrice} dollars : Buy/Long position");
 
                 await HandleDiscrepancyAndTradeAsync(isBybitHigher);
+                
+                await MonitorAndClosePositionAsync(isBybitHigher, decimal.Parse(Threshold) / 2);
             }
         }
-        
-        private async Task HandleDiscrepancyAndTradeAsync(bool isBybitHigher)
+    }
+    
+    private async Task MonitorAndClosePositionAsync(bool isBybitHigher, decimal closeThreshold)
+    {
+        decimal currentDiscrepancy;
+    
+        // Monitor until the discrepancy falls below the close threshold
+        do
         {
-            // If Bybit is higher, short Bybit and long Binance
-            if (isBybitHigher)
-            {
-                await OpenCloseBybitPositions(OrderSide.Sell);
-                await OpenCloseBinancePositions(Binance.Net.Enums.OrderSide.Buy);
-            }
-            // If Binance is higher, short Binance and long Bybit
-            else
-            {
-                await OpenCloseBybitPositions(OrderSide.Buy);
-                await OpenCloseBinancePositions(Binance.Net.Enums.OrderSide.Sell);
-            }
-        }
+            decimal bybitPrice = BybitPrice;
+            decimal binancePrice = BinancePrice;
+            currentDiscrepancy = Math.Abs(bybitPrice - binancePrice);
 
-        public static readonly string Bybit_API_KEY = "aVcZaYygMMUqRwDT4J";
-        public static readonly string Bybit_API_SECRET = "Hsv944KqPncici7DdHBOVuIcSwvypPn9jVnt";
-        public static readonly BybitEnvironment By_env = BybitEnvironment.Testnet;
-        
-        public static readonly string Binance_API_KEY = "099c7a9c36082ba8e20062661f17e291e5bc5b92f8b6c5fd00e0887628b5d113";
-        public static readonly string Binance_API_SECRET = "01be6c5ae8f4c57aafceb0e241ca0ecc38fe61f2801311c8ed98b3465d813b9f";
-        public static readonly BinanceEnvironment Bin_env = BinanceEnvironment.Testnet;
-
-        [ObservableProperty] 
-        private string _quantity;
-
-        private async Task OpenCloseBybitPositions(OrderSide side)
-        {
-            var currency = OnCurrencyChanged();
-            
-            var bybitClient = new BybitRestClient(options =>
-            {
-                options.ApiCredentials = new ApiCredentials(Bybit_API_KEY, Bybit_API_SECRET);
-                options.Environment = By_env;
-            });
-
-            var newOrder = await bybitClient.V5Api.Trading.PlaceOrderAsync(
-                category: Category.Linear,
-                symbol: currency,
-                side: side,
-                type: NewOrderType.Market,
-                quantity: decimal.Parse(Quantity),
-                timeInForce: TimeInForce.ImmediateOrCancel
-            );
-
-            if (!newOrder.Success)
-            {
-                Console.WriteLine($"Failed to create an order on Bybit! Error: {newOrder.Error.Message}");
-                return;
-            }
-
-            Console.WriteLine($"Opened {side} position on Bybit. Order ID: {newOrder.Data.OrderId}");
-
-            // Wait for 500 ms before closing
+            // Wait for a short interval before rechecking
             await Task.Delay(500);
-
-            // Close the position
-            var closeOrder = await bybitClient.V5Api.Trading.PlaceOrderAsync(
-                category: Category.Linear,
-                symbol: currency,
-                side: side == OrderSide.Buy ? OrderSide.Sell : OrderSide.Buy,
-                type: NewOrderType.Market,
-                quantity: decimal.Parse(Quantity),
-                reduceOnly: true,
-                closeOnTrigger: true
-            );
-
-            if (!closeOrder.Success)
-            {
-                Console.WriteLine($"Failed to close Bybit position! Error: {closeOrder.Error.Message}");
-                return;
-            }
-
-            Console.WriteLine($"Successfully closed {currency} position on Bybit. Order ID: {closeOrder.Data.OrderId}");
         }
-        
-        private async Task OpenCloseBinancePositions(Binance.Net.Enums.OrderSide side)
+        while (currentDiscrepancy >= closeThreshold);
+
+        Console.WriteLine($"Discrepancy fell below {closeThreshold}. Closing positions.");
+
+        // Close the open positions once the discrepancy is below the close threshold
+        await ClosePositionsAsync(isBybitHigher);
+    }
+
+    private async Task ClosePositionsAsync(bool isBybitHigher)
+    {
+        // If Bybit was higher at the opening, now close the Bybit short and Binance long
+        if (isBybitHigher)
         {
-            var currency = OnCurrencyChanged();
-
-            var binanceClient = new BinanceRestClient(options =>
-            {
-                options.ApiCredentials = new ApiCredentials(Binance_API_KEY, Binance_API_SECRET);
-                options.Environment = Bin_env;
-            });
-
-            // Set position side explicitly based on the order side
-            var positionSide = side == Binance.Net.Enums.OrderSide.Buy 
-                ? Binance.Net.Enums.PositionSide.Long 
-                : Binance.Net.Enums.PositionSide.Short;
-
-            var newOrder = await binanceClient.UsdFuturesApi.Trading.PlaceOrderAsync(
-                symbol: currency,
-                side: side,
-                type: Binance.Net.Enums.FuturesOrderType.Market,
-                quantity: decimal.Parse(Quantity),
-                positionSide: positionSide
-            );
-
-            if (!newOrder.Success)
-            {
-                Console.WriteLine($"Failed to create an order on Binance! Error: {newOrder.Error.Message}");
-                return;
-            }
-
-            Console.WriteLine($"Opened {side} position on Binance. Order ID: {newOrder.Data.Id}");
-
-            // Wait for 500 ms before closing
-            await Task.Delay(500);
-
-            // Close the position
-            var closeOrder = await binanceClient.UsdFuturesApi.Trading.PlaceOrderAsync(
-                symbol: currency,
-                side: side == Binance.Net.Enums.OrderSide.Buy ? Binance.Net.Enums.OrderSide.Sell : Binance.Net.Enums.OrderSide.Buy,
-                type: Binance.Net.Enums.FuturesOrderType.Market,
-                quantity: decimal.Parse(Quantity),
-                positionSide: positionSide
-            );
-
-            if (!closeOrder.Success)
-            {
-                Console.WriteLine($"Failed to close Binance position! Error: {closeOrder.Error.Message}");
-                return;
-            }
-
-            Console.WriteLine($"Successfully closed {currency} position on Binance. Order ID: {closeOrder.Data.Id}");
-            Console.WriteLine("\n");
+            await OpenCloseBybitPositions(OrderSide.Buy); // Close short on Bybit
+            await OpenCloseBinancePositions(Binance.Net.Enums.OrderSide.Sell); // Close long on Binance
         }
-        
+        // If Binance was higher at the opening, close the Binance short and Bybit long
+        else
+        {
+            await OpenCloseBybitPositions(OrderSide.Sell); // Close long on Bybit
+            await OpenCloseBinancePositions(Binance.Net.Enums.OrderSide.Buy); // Close short on Binance
+        }
+    }
+
+    private async Task HandleDiscrepancyAndTradeAsync(bool isBybitHigher)
+    {
+        // If Bybit is higher, short Bybit and long Binance
+        if (isBybitHigher)
+        {
+            await OpenCloseBybitPositions(OrderSide.Sell);
+            await OpenCloseBinancePositions(Binance.Net.Enums.OrderSide.Buy);
+        }
+        // If Binance is higher, short Binance and long Bybit
+        else
+        {
+            await OpenCloseBybitPositions(OrderSide.Buy);
+            await OpenCloseBinancePositions(Binance.Net.Enums.OrderSide.Sell);
+        }
+    }
+
+    public static readonly string Bybit_API_KEY = "aVcZaYygMMUqRwDT4J";
+    public static readonly string Bybit_API_SECRET = "Hsv944KqPncici7DdHBOVuIcSwvypPn9jVnt";
+    public static readonly BybitEnvironment By_env = BybitEnvironment.Testnet;
+    
+    public static readonly string Binance_API_KEY = "e84bee016bbe783cc1a965bd189c2ca18fe0686449a6dce0eb9546800632d3f3";
+    public static readonly string Binance_API_SECRET = "ba3d8443f3ce00335d91feca0a0ffa1af41ad2c7dbbae0184b10b2453a3ae1c3";
+    public static readonly BinanceEnvironment Bin_env = BinanceEnvironment.Testnet;
+
+    [ObservableProperty] 
+    private string _quantity;
+
+    private async Task OpenCloseBybitPositions(OrderSide side)
+    {
+        var currency = OnCurrencyChanged();
+    
+        var bybitClient = new BybitRestClient(options =>
+        {
+            options.ApiCredentials = new ApiCredentials(Bybit_API_KEY, Bybit_API_SECRET);
+            options.Environment = By_env;
+        });
+
+        var newOrder = await bybitClient.V5Api.Trading.PlaceOrderAsync(
+            category: Category.Linear,
+            symbol: currency,
+            side: side,
+            type: NewOrderType.Market,
+            quantity: decimal.Parse(Quantity),
+            timeInForce: TimeInForce.ImmediateOrCancel
+        );
+
+        if (!newOrder.Success)
+        {
+            Console.WriteLine($"Failed to create an order on Bybit! Error: {newOrder.Error.Message}");
+            return;
+        }
+
+        Console.WriteLine($"Opened {side} position on Bybit. Order ID: {newOrder.Data.OrderId}");
+        await SetTransactionData(newOrder.Data.OrderId, BybitPrice, decimal.Parse(Quantity), "Bybit", currency, side.ToString());
+    }
+    
+    private async Task OpenCloseBinancePositions(Binance.Net.Enums.OrderSide side)
+    {
+        var currency = OnCurrencyChanged();
+
+        var binanceClient = new BinanceRestClient(options =>
+        {
+            options.ApiCredentials = new ApiCredentials(Binance_API_KEY, Binance_API_SECRET);
+            options.Environment = Bin_env;
+        });
+
+        // Set position side explicitly based on the order side
+        var positionSide = side == Binance.Net.Enums.OrderSide.Buy 
+            ? Binance.Net.Enums.PositionSide.Long 
+            : Binance.Net.Enums.PositionSide.Short;
+
+        var newOrder = await binanceClient.UsdFuturesApi.Trading.PlaceOrderAsync(
+            symbol: currency,
+            side: side,
+            type: Binance.Net.Enums.FuturesOrderType.Market,
+            quantity: decimal.Parse(Quantity),
+            positionSide: positionSide
+        );
+
+        if (!newOrder.Success)
+        {
+            Console.WriteLine($"Failed to create an order on Binance! Error: {newOrder.Error.Message}");
+            return;
+        }
+
+        Console.WriteLine($"Opened {side} position on Binance. Order ID: {newOrder.Data.Id}");
+
+        await SetTransactionData(newOrder.Data.Id.ToString(), BinancePrice, decimal.Parse(Quantity), "Binance", currency, side.ToString());
+    }
+
+    private async Task SetTransactionData(string orderId, decimal price, decimal quantity, string exchange, string currency, string action, decimal? profit = null)
+    {
+        string insertQuery = @"
+        INSERT INTO transactions 
+        (order_id, price, quantity, exchange, currency, action, profit, date, time, email) 
+        VALUES 
+        (@orderId, @price, @quantity, @exchange, @currency, @action, @profit, @date, @time, @Email)";
+
+        using (var connection = new MySqlConnection(connectionString))
+        {
+            await connection.OpenAsync();
+
+            using (var command = new MySqlCommand(insertQuery, connection))
+            {
+                // Adding parameters to prevent SQL injection
+                command.Parameters.AddWithValue("@orderId", orderId);
+                command.Parameters.AddWithValue("@price", price);
+                command.Parameters.AddWithValue("@quantity", quantity);
+                command.Parameters.AddWithValue("@exchange", exchange);
+                command.Parameters.AddWithValue("@currency", currency);
+                command.Parameters.AddWithValue("@action", action);
+                command.Parameters.AddWithValue("@profit", profit.HasValue ? (object)profit.Value : DBNull.Value);
+                command.Parameters.AddWithValue("@date", DateTime.UtcNow.Date);
+                command.Parameters.AddWithValue("@time", DateTime.UtcNow.TimeOfDay);
+                command.Parameters.AddWithValue("@Email", Email);
+
+                try
+                {
+                    await command.ExecuteNonQueryAsync();
+                    Console.WriteLine($"Transaction recorded for {exchange} on {currency}: {action} position, Order ID: {orderId}");
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Error recording transaction: {ex.Message}");
+                }
+            }
+        }
+    }
+
+    
 
 }
 

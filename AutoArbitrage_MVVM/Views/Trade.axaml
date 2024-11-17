@@ -335,9 +335,10 @@
                     <Label Margin="8,10,0,0" FontSize="12" Foreground="White">Size</Label>
                     <TextBox Name="Size" GotFocus="Size_OnGotFocus" LostFocus="Size_OnLostFocus" Text="{Binding Quantity}" Margin="0,0,34,0" Background="White" Height="27.75" Width="275.25"></TextBox>
                     
+                    <Label Margin="8,10,0,0" FontSize="12" Foreground="White">Frequency (ms)</Label>
+                    <TextBox Name="Frequency" GotFocus="Frequency_OnGotFocus" LostFocus="Frequency_OnLostFocus" Text="{Binding Frequency}" Margin="0,0,34,0" Background="White" Height="27.75" Width="275.25"></TextBox>
                     
-                    
-                    <Button HorizontalAlignment="Center" Margin="0,48,34,0" Height="39.75" Width="173.25" Background="Orange" Foreground="#0E0E22" 
+                    <Button HorizontalAlignment="Center" Margin="0,28,34,0" Height="39.75" Width="173.25" Background="Orange" Foreground="#0E0E22" 
                             HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="24" FontWeight="Bold" Command="{Binding StartDiscrepancyCheckerAsync}">TRADE
                     </Button>
                     
