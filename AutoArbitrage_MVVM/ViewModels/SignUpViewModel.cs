@@ -41,7 +41,7 @@ namespace AutoArbitrage_MVVM.ViewModels
         {
             if (string.IsNullOrEmpty(Email) || string.IsNullOrEmpty(Password) ||
                 string.IsNullOrEmpty(ConfirmPassword) ||
-                string.IsNullOrEmpty(FullName) || string.IsNullOrEmpty(phoneNumber))
+                string.IsNullOrEmpty(FullName) || string.IsNullOrEmpty(PhoneNumber))
             {
                 ErrorMessage = "Please fill in all fields.";
                 return;

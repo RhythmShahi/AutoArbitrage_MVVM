@@ -4,96 +4,184 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:viewModels="clr-namespace:AutoArbitrage_MVVM.ViewModels"
              mc:Ignorable="d" d:DesignWidth="1080" d:DesignHeight="621"
-			 Width="1080" Height="621"
+             Width="1080" Height="621"
              x:Class="AutoArbitrage_MVVM.Views.Settings"
-			  Background="#121528"
+             Background="#121528"
              x:DataType="viewModels:SettingsViewModel">
-	
-	<UserControl.Styles>
-		<!-- Button Hover Styling -->
-		<Style Selector="Button:pointerover /template/ ContentPresenter">
-			<Setter Property="Background">
-				<Setter.Value>
-					<SolidColorBrush Color="#7C7C7C"  />
-				</Setter.Value>
-			</Setter>
+    <UserControl.Styles>
+        <!-- Button Hover Styling -->
+        <Style Selector="Button:pointerover /template/ ContentPresenter">
+            <Setter Property="Background">
+                <Setter.Value>
+                    <SolidColorBrush Color="#7C7C7C" />
+                </Setter.Value>
+            </Setter>
+            <Setter Property="Foreground">
+                <Setter.Value>
+                    <SolidColorBrush Color="#0E0E22" Opacity="1.0" />
+                </Setter.Value>
+            </Setter>
+        </Style>
 
-			<Setter Property="Foreground">
-				<Setter.Value>
-					<SolidColorBrush Color="#0E0E22" Opacity="1.0" />
-				</Setter.Value>
-			</Setter>
-		</Style>
+        <!-- Button Pressed Styling -->
+        <Style Selector=":is(Button):pressed">
+            <Setter Property="RenderTransform" Value="none" />
+        </Style>
 
+        <!-- Button Focus Styling -->
+        <Style Selector="Button:focus /template/ ContentPresenter">
+            <Setter Property="Background">
+                <Setter.Value>
+                    <SolidColorBrush Color="#D9D9D9" Opacity="0.67" />
+                </Setter.Value>
+            </Setter>
+            <Setter Property="Foreground">
+                <Setter.Value>
+                    <SolidColorBrush Color="#0E0E22" Opacity="1.0" />
+                </Setter.Value>
+            </Setter>
+        </Style>
+        
 
+        <!-- ToggleSwitch Styles -->
+        <Style Selector="ToggleSwitch">
+            <Setter Property="Foreground" Value="{DynamicResource ThemeForegroundColor}" />
+            <Setter Property="HorizontalAlignment" Value="Left" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="KnobTransitions">
+                <Transitions>
+                    <DoubleTransition Easing="CubicEaseOut" Property="Canvas.Left" Duration="0:0:0.2" />
+                </Transitions>
+            </Setter>
+            <Setter Property="Template">
+        <ControlTemplate TargetType="ToggleSwitch">
+            <Grid Background="{TemplateBinding Background}" RowDefinitions="Auto,*">
+                <!-- Header Content Presenter (removed) -->
+                <!-- This part will not display any content now -->
 
-	<!-- Button Pressed Styling -->
-		<Style Selector=":is(Button):pressed">
-			<Setter Property="RenderTransform" Value="none" />	
-		</Style>
+                <!-- Main Switch Area -->
+                <Grid Grid.Row="1"
+                      HorizontalAlignment="Left"
+                      VerticalAlignment="Top">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
 
-	<!-- Style Selector="Button:pressed /template/ ContentPresenter">
-		<Setter Property="Background" Value="#D9D9D9">
-			<Setter.Value>
-				<SolidColorBrush Color="#D9D9D9" Opacity="0.67" />
-			</Setter.Value>
-		</Setter>
+                    <Grid x:Name="SwitchAreaGrid"
+                          Grid.RowSpan="1"
+                          Grid.ColumnSpan="2"
+                          TemplatedControl.IsTemplateFocusTarget="True"
+                          Margin="0,5" />
 
-		<Setter Property="Foreground">
-			<Setter.Value>
-				<SolidColorBrush Color="#0E0E22" Opacity="1.0" />
-			</Setter.Value>
-		</Setter>
-	</Style> -->
+                    <!-- Content Presenters for Off and On States (removed) -->
+                    <!-- Set ContentPresenter to null to remove text from both states -->
+                    <ContentPresenter x:Name="PART_OffContentPresenter"
+                                      Grid.RowSpan="3"
+                                      Grid.Column="2"
+                                      Content="{TemplateBinding OffContent}" 
+                                      ContentTemplate="{TemplateBinding OffContentTemplate}" 
+                                      HorizontalAlignment="Center" 
+                                      VerticalAlignment="Center" 
+                                      />  <!-- Collapsing it to hide text -->
+                    
+                    <ContentPresenter x:Name="PART_OnContentPresenter"
+                                      Grid.RowSpan="3"
+                                      Grid.Column="2"
+                                      Content="{TemplateBinding OnContent}"
+                                      ContentTemplate="{TemplateBinding OnContentTemplate}"
+                                      HorizontalAlignment="Center"
+                                      VerticalAlignment="Center"
+                                      />  <!-- Collapsing it to hide text -->
 
-   <!-- Button Selected Styling -->
+                    <!-- Outer Border for the ToggleSwitch -->
+            <Border x:Name="OuterBorder"
+                    Grid.Row="1"
+                    Height="28.5"
+                    Width="55.5"
+                    CornerRadius="39.75"
+                    Background="#FFFFFF"
+                    BorderBrush="#FFFFFF"
+                    BorderThickness="1" />
 
-	<Style Selector="Button:focus /template/ ContentPresenter">
-		<Setter Property="Background">
-			<Setter.Value>
-				<SolidColorBrush Color="#D9D9D9" Opacity="0.67"/>
-			</Setter.Value>
-		</Setter>
+            <!-- Knob Bounds -->
+            <Border x:Name="SwitchKnobBounds"
+                    Grid.Row="1"
+                    Height="22.5"
+                    Width="22.5"
+                    Background="#3F3F3F" />
 
-		<Setter Property="Foreground">
-			<Setter.Value>
-				<SolidColorBrush Color="#0E0E22" Opacity="1.0" />
-			</Setter.Value>
-		</Setter>
-	</Style>
-	
-	
-</UserControl.Styles>
+            <!-- Canvas for the Knob -->
+            <Canvas x:Name="PART_SwitchKnob" Grid.Row="1"
+                    HorizontalAlignment="Left"
+                    Width="22.5" Height="22.5" Margin="5">
+                <Grid x:Name="PART_MovingKnobs"
+                      Width="22.5" Height="22.5" >
+                    <Ellipse x:Name="SwitchKnobOn"
+                             Fill="#10265F"
+                             Width="22.5" Height="22.5" />
+                    <Ellipse x:Name="SwitchKnobOff"
+                             Fill="#3F3F3F"
+                             Width="22.5" Height="22.5" />
+                </Grid>
+            </Canvas>
+        </Grid>
+    </Grid>
+</ControlTemplate>
+            </Setter>
+        </Style>
+    </UserControl.Styles>
 
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="267" />
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="Auto" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+        </Grid.RowDefinitions>
 
-	<Grid>
-		<Grid.ColumnDefinitions>
-			<ColumnDefinition Width="Auto"/>
-			<ColumnDefinition Width="Auto"/>
-	    </Grid.ColumnDefinitions>
+        <!-- Left Menu -->
+        <Grid Grid.Column="0" Margin="32,0,0,0">
+            <Rectangle HorizontalAlignment="Left" Width="267" Height="590.25" Fill="#0D0C21" Opacity="0.77" RadiusX="22" RadiusY="22" />
+            <StackPanel>
+                <Button Content="General" Padding="30,10,0,10" CornerRadius="0" Width="266.25" Height="52.5" Background="Transparent" Foreground="White" FontSize="24" FontWeight="Medium" Margin="0,40,0,0" />
+                <Button Content="Display" Padding="30,10,0,10" CornerRadius="0" Width="266.25" Height="52.5" Background="Transparent" Foreground="White" FontSize="24" FontWeight="Medium" Margin="0,20,0,0" />
+                <Button Content="Trading" Padding="30,10,0,10" CornerRadius="0" Width="266.25" Height="52.5" Background="Transparent" Foreground="White" FontSize="24" FontWeight="Medium" Margin="0,20,0,0" />
+                <Button Content="Wallet" Padding="30,10,0,10" CornerRadius="0" Width="266.25" Height="52.5" Background="Transparent" Foreground="White" FontSize="24" FontWeight="Medium" Margin="0,20,0,0" />
+                <Button Content="Personal" Padding="30,10,0,10" CornerRadius="0" Width="266.25" Height="52.5" Background="Transparent" Foreground="White" FontSize="24" FontWeight="Medium" Margin="0,20,0,0" />
+                <Button Content="Miscellaneous" Padding="30,10,0,10" CornerRadius="0" Width="266.25" Height="52.5" Background="Transparent" Foreground="White" FontSize="24" FontWeight="Medium" Margin="0,20,0,0" />
+            </StackPanel>
+        </Grid>
 
-		<Grid.RowDefinitions>
-			<RowDefinition Height="Auto"></RowDefinition>
-			<RowDefinition Height="Auto"></RowDefinition>
-		</Grid.RowDefinitions>
+        <!-- Right Content -->
+        <StackPanel x:Name="DisplayContent" Grid.Column="1">
+            <StackPanel Orientation="Horizontal" Margin="79,100,0,0">
+                <TextBlock Foreground="#FFFFFF" FontSize="18" Text="Dark Mode" FontWeight="Regular" />
+            </StackPanel>
+            <TextBlock Foreground="#FFFFFF" FontSize="12" Text="Switch between Light Mode or Dark Mode according to your preference." Margin="79,5,0,0" FontWeight="Light" />
+            <StackPanel Orientation="Horizontal" Margin="79,64.5,0,0">
+                <TextBlock Foreground="#FFFFFF" FontSize="18" Text="Stacked Horizontal Order Book" FontWeight="Regular" />
+            </StackPanel>
+            <TextBlock Foreground="#FFFFFF" FontSize="12" Text="Change Order Book orientation to fit better on your device." Margin="79,5,0,0" FontWeight="Light" />
+            <StackPanel Orientation="Horizontal" Margin="79,64.5,0,0">
+                <TextBlock Foreground="#FFFFFF" FontSize="18" Text="View Detailed Past Transactions" FontWeight="Regular" />
+            </StackPanel>
+            <TextBlock Foreground="#FFFFFF" FontSize="12" Text="Display all possible columns in the Past Transactions Page" Margin="79,5,0,0" FontWeight="Light" />
+        </StackPanel>
 
-		<Grid Grid.Column="0" Margin="32,0,0,0">
-			<Rectangle
-			  HorizontalAlignment="Left"
-			  Width="267" Height="590.25"
-			  Fill="#0D0C21"
-			  Opacity="0.77"
-			  RadiusX="22" RadiusY="22"/>
-
-
-			<StackPanel >
-				<Button Content="General" Padding="30,10,0,10" CornerRadius="0" Width="266.25" Height="52.5" Background="Transparent" Foreground="White" FontSize="24" FontWeight="Medium" Margin="0,40,0,0"/>
-				<Button Content="Display"  Padding="30,10,0,10" CornerRadius="0" Width="266.25" Height="52.5" Background="Transparent"  Foreground="White" FontSize="24" FontWeight="Medium" Margin="0,20,0,0"/>
-				<Button Content="Trading" Padding="30,10,0,10" CornerRadius="0" Width="266.25" Height="52.5" Background="Transparent"  Foreground="White" FontSize="24" FontWeight="Medium" Margin="0,20,0,0"/>
-				<Button Content="Wallet" Padding="30,10,0,10" CornerRadius="0" Width="266.25" Height="52.5" Background="Transparent"   Foreground="White" FontSize="24" FontWeight="Medium" Margin="0,20,0,0"/>
-				<Button Content="Personal" Padding="30,10,0,10" CornerRadius="0" Width="266.25" Height="52.5" Background="Transparent"  Foreground="White" FontSize="24" FontWeight="Medium" Margin="0,20,0,0"/>
-				<Button Content="Miscellaneous" Padding="30,10,0,10" CornerRadius="0" Width="266.25" Height="52.5" Background="Transparent"  Foreground="White"  FontSize="24" FontWeight="Medium" Margin="0,20,0,0"/>
-			</StackPanel>
-		</Grid>
-	</Grid>
+        <StackPanel Grid.Column="2" Orientation="Vertical" Margin="200,0,0,0">
+            <ToggleSwitch Margin="0,90,0,0" />
+            <ToggleSwitch Margin="0,70,0,0" />
+            <ToggleSwitch Margin="0,70.5,0,0" />
+        </StackPanel>
+    </Grid>
 </UserControl>

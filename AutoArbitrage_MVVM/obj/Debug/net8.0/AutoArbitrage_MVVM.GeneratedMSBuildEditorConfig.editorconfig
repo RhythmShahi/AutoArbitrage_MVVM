@@ -49,3 +49,6 @@ build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
 
 [D:/JetBrains Rider/Projects/AutoArbitrage_MVVM/AutoArbitrage_MVVM/Views/Transactions.axaml]
 build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
+
+[D:/JetBrains Rider/Projects/AutoArbitrage_MVVM/AutoArbitrage_MVVM/Views/Wallet.axaml]
+build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml

@@ -15,6 +15,7 @@ namespace AutoArbitrage_MVVM.ViewModels
         public NewsViewModel NewsViewModel { get; }
         public SettingsViewModel SettingsViewModel { get; }
         public TransactionsViewModel TransactionsViewModel { get; }
+        public WalletViewModel WalletViewModel { get; }
         
         public MainWindowViewModel()
         {
@@ -23,6 +24,7 @@ namespace AutoArbitrage_MVVM.ViewModels
             NewsViewModel = new NewsViewModel();
             SettingsViewModel = new SettingsViewModel();
             TransactionsViewModel = new TransactionsViewModel();
+            WalletViewModel = new WalletViewModel();
 
             CurrentView = TradeViewModel;
         }
@@ -33,6 +35,7 @@ namespace AutoArbitrage_MVVM.ViewModels
             CurrentView = destination switch
             {
                 "Trade" => TradeViewModel,
+                "Wallet" => WalletViewModel,
                 "Profile" => ProfileViewModel, 
                 "News" => NewsViewModel,
                 "Settings" => SettingsViewModel,

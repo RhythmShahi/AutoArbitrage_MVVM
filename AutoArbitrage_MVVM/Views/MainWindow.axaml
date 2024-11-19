@@ -105,6 +105,8 @@
                 Name="Wallet"
                 Content="Wallet"
                 Click="Wallet_OnClick"
+                Command="{Binding OnNavigate}"
+                CommandParameter="Wallet"
                 Background="Transparent"
                 Height="33"
                 Width="85.5"

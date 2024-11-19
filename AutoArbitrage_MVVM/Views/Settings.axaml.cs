@@ -1,4 +1,5 @@
-﻿using Avalonia;
+﻿using AutoArbitrage_MVVM.ViewModels;
+using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
 
@@ -9,6 +10,6 @@ public partial class Settings : UserControl
     public Settings()
     {
         InitializeComponent();
-        DataContext = new Profile();
+        DataContext = new SettingsViewModel();
     }
 }

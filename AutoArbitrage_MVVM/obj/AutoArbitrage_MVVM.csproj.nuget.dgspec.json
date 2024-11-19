@@ -84,6 +84,14 @@
               "target": "Package",
               "version": "[8.3.2, )"
             },
+            "LiveChartsCore": {
+              "target": "Package",
+              "version": "[2.0.0-rc4.5, )"
+            },
+            "LiveChartsCore.SkiaSharpView.Avalonia": {
+              "target": "Package",
+              "version": "[2.0.0-rc4.5, )"
+            },
             "MySql.Data": {
               "target": "Package",
               "version": "[9.1.0, )"

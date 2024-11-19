@@ -15,6 +15,7 @@
         <entry key="AutoArbitrage_MVVM/Views/Trade.axaml" value="AutoArbitrage_MVVM/AutoArbitrage_MVVM.csproj" />
         <entry key="AutoArbitrage_MVVM/Views/Transactions.axaml" value="AutoArbitrage_MVVM/AutoArbitrage_MVVM.csproj" />
         <entry key="AutoArbitrage_MVVM/Views/UserControl1.axaml" value="AutoArbitrage_MVVM/AutoArbitrage_MVVM.csproj" />
+        <entry key="AutoArbitrage_MVVM/Views/Wallet.axaml" value="AutoArbitrage_MVVM/AutoArbitrage_MVVM.csproj" />
       </map>
     </option>
   </component>

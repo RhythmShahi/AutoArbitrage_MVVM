@@ -12,6 +12,10 @@
                  <DataTemplate DataType="{x:Type vm:TradeViewModel}">
                      <views:Trade/>
                  </DataTemplate>
+                 
+                 <DataTemplate DataType="{x:Type vm:WalletViewModel}">
+                     <views:Wallet/>
+                 </DataTemplate>
 
                  <DataTemplate DataType="{x:Type vm:ProfileViewModel}">
                      <views:Profile/>
