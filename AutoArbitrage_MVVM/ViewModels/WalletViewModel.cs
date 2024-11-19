@@ -53,6 +53,11 @@ public partial class WalletViewModel : ObservableObject
     [ObservableProperty]
     private List<ISeries> _binanceSeries = new();
     
+    [ObservableProperty] private string binanceKey;
+    [ObservableProperty] private string binanceSecret;
+    [ObservableProperty] private string bybitKey;
+    [ObservableProperty] private string bybitSecret;
+    
 
     public WalletViewModel()
     {
