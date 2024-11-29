@@ -2,7 +2,7 @@
 import json
 import sys
 
-API_KEY = "2myuLonCGqyk94gBt6DLF0D3D7k_2eGJcpAZ3xkNVJB17Pvzi"  # Replace with your actual API key
+API_KEY = "2myuLonCGqyk94gBt6DLF0D3D7k_2eGJcpAZ3xkNVJB17Pvzi" 
 url = "https://tops-hog-hot.ngrok-free.app/news"
 
 def fetch_news():
