@@ -1,0 +1,58 @@
+is_global = true
+build_property.EnableAotAnalyzer = 
+build_property.EnableSingleFileAnalyzer = true
+build_property.EnableTrimAnalyzer = 
+build_property.IncludeAllContentForSelfExtract = 
+build_property.AvaloniaNameGeneratorIsEnabled = true
+build_property.AvaloniaNameGeneratorBehavior = InitializeComponent
+build_property.AvaloniaNameGeneratorDefaultFieldModifier = internal
+build_property.AvaloniaNameGeneratorFilterByPath = *
+build_property.AvaloniaNameGeneratorFilterByNamespace = *
+build_property.AvaloniaNameGeneratorViewFileNamingStrategy = NamespaceAndClassName
+build_property.AvaloniaNameGeneratorAttachDevTools = true
+build_property.MvvmToolkitEnableINotifyPropertyChangingSupport = true
+build_property.TargetFramework = net8.0
+build_property.TargetPlatformMinVersion = 
+build_property.UsingMicrosoftNETSdkWeb = 
+build_property.ProjectTypeGuids = 
+build_property.InvariantGlobalization = 
+build_property.PlatformNeutralAssembly = 
+build_property.EnforceExtendedAnalyzerRules = 
+build_property._SupportedPlatformList = Linux,macOS,Windows
+build_property.RootNamespace = AutoArbitrage_MVVM
+build_property.ProjectDir = D:\JetBrains Rider\Projects\AutoArbitrage_MVVM\AutoArbitrage_MVVM\
+build_property.EnableComHosting = 
+build_property.EnableGeneratedComInterfaceComImportInterop = 
+
+[D:/JetBrains Rider/Projects/AutoArbitrage_MVVM/AutoArbitrage_MVVM/App.axaml]
+build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
+
+[D:/JetBrains Rider/Projects/AutoArbitrage_MVVM/AutoArbitrage_MVVM/Views/Display.axaml]
+build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
+
+[D:/JetBrains Rider/Projects/AutoArbitrage_MVVM/AutoArbitrage_MVVM/Views/Login.axaml]
+build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
+
+[D:/JetBrains Rider/Projects/AutoArbitrage_MVVM/AutoArbitrage_MVVM/Views/MainWindow.axaml]
+build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
+
+[D:/JetBrains Rider/Projects/AutoArbitrage_MVVM/AutoArbitrage_MVVM/Views/News.axaml]
+build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
+
+[D:/JetBrains Rider/Projects/AutoArbitrage_MVVM/AutoArbitrage_MVVM/Views/Profile.axaml]
+build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
+
+[D:/JetBrains Rider/Projects/AutoArbitrage_MVVM/AutoArbitrage_MVVM/Views/Settings.axaml]
+build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
+
+[D:/JetBrains Rider/Projects/AutoArbitrage_MVVM/AutoArbitrage_MVVM/Views/SignUp.axaml]
+build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
+
+[D:/JetBrains Rider/Projects/AutoArbitrage_MVVM/AutoArbitrage_MVVM/Views/Trade.axaml]
+build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
+
+[D:/JetBrains Rider/Projects/AutoArbitrage_MVVM/AutoArbitrage_MVVM/Views/Transactions.axaml]
+build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
+
+[D:/JetBrains Rider/Projects/AutoArbitrage_MVVM/AutoArbitrage_MVVM/Views/Wallet.axaml]
+build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml

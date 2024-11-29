@@ -1,0 +1,10 @@
+D:\JetBrains Rider\Projects\AutoArbitrage_MVVM\AutoArbitrage_MVVM\bin\Release\net8.0\win-x64\publish\AutoArbitrage_MVVM.pdb
+D:\JetBrains Rider\Projects\AutoArbitrage_MVVM\AutoArbitrage_MVVM\bin\Release\net8.0\win-x64\publish\av_libglesv2.dll
+D:\JetBrains Rider\Projects\AutoArbitrage_MVVM\AutoArbitrage_MVVM\bin\Release\net8.0\win-x64\publish\libHarfBuzzSharp.dll
+D:\JetBrains Rider\Projects\AutoArbitrage_MVVM\AutoArbitrage_MVVM\bin\Release\net8.0\win-x64\publish\comerr64.dll
+D:\JetBrains Rider\Projects\AutoArbitrage_MVVM\AutoArbitrage_MVVM\bin\Release\net8.0\win-x64\publish\gssapi64.dll
+D:\JetBrains Rider\Projects\AutoArbitrage_MVVM\AutoArbitrage_MVVM\bin\Release\net8.0\win-x64\publish\k5sprt64.dll
+D:\JetBrains Rider\Projects\AutoArbitrage_MVVM\AutoArbitrage_MVVM\bin\Release\net8.0\win-x64\publish\krb5_64.dll
+D:\JetBrains Rider\Projects\AutoArbitrage_MVVM\AutoArbitrage_MVVM\bin\Release\net8.0\win-x64\publish\krbcc64.dll
+D:\JetBrains Rider\Projects\AutoArbitrage_MVVM\AutoArbitrage_MVVM\bin\Release\net8.0\win-x64\publish\libSkiaSharp.dll
+D:\JetBrains Rider\Projects\AutoArbitrage_MVVM\AutoArbitrage_MVVM\bin\Release\net8.0\win-x64\publish\AutoArbitrage_MVVM.exe
